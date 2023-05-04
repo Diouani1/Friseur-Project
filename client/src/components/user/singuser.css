@@ -1,0 +1,12 @@
+.singuser{
+  margin-top: 5%;
+}
+
+
+
+.bg-primary-dark {
+    background-color: rgba(67, 72, 77, 0.301); /* 50% darker blue */
+  }
+  .psw-vs {
+   z-index: 10;
+  }
