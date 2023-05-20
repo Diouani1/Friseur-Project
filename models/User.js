@@ -40,9 +40,9 @@ const userSchema = new Schema(
       default: {
         fieldname: "avatar",
         originalname: "avatar",
-        mimetype: "image/png",
-        filename: "default-avatar.png",
-        path: "uploads/avatar.png",
+        mimetype: "image/jng",
+        filename: "default-avatar.jpg",
+        path: "uploads/avatar.jpg",
         size: 0,
       },
     },
@@ -52,12 +52,18 @@ const userSchema = new Schema(
       enum: ["user", "admin", "employer"],
       default: "user",
     },
+    telephone: {
+      type: String,
+    },
     verified: {
       type: Boolean,
       default: false,
     },
     passwordRandomInt: { type: String },
-    passwordRandomIntExpires: { type: Date },
+    reception: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     toJSON: {
@@ -94,12 +100,12 @@ userSchema.methods.comparePassword = async function (candidatePassword) {
 // Add a new function to the schema to compare passwords
 
 userSchema.statics.login = async (loginUser) => {
-  const admin = await User.findOne({
+  const user = await User.findOne({
     email: loginUser.email,
   });
-  if (!admin) return false;
-  const isPasswordCorrect = await compare(loginUser.password, admin.password);
-  return isPasswordCorrect ? admin : false;
+  if (!user) return false;
+  const isPasswordCorrect = await compare(loginUser.password, user.password);
+  return isPasswordCorrect ? user : false;
 };
 
 const User = model("user", userSchema);

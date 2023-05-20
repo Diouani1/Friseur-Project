@@ -4,7 +4,7 @@ import path from "path";
 
 const profilePicture = async (req, res, next) => {
   try {
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(req.userId);
 
     const fotoProfilePath = path.resolve("./", user.imgProfile.path);
     res.sendFile(fotoProfilePath);

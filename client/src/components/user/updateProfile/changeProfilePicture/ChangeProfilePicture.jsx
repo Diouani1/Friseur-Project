@@ -1,9 +1,11 @@
-import { useContext } from "react";
-import { Container, Row, Col, Image, Button } from "react-bootstrap";
-import { UserContext } from "../../../../context/User";
-
+import { useContext, useState } from "react";
+import { Container, Image, Button, Modal, Form } from "react-bootstrap";
+import { UserContext } from "../../../../context/user/User";
+import avatar from "../../../../assets/avatar.png";
+import AlertWarned from "../../../alert/AlertWarned";
 const ChangeProfilePicture = () => {
   const {
+    showWarned,
     user,
     setWarnedMessage,
     setShowWarned,
@@ -15,76 +17,101 @@ const ChangeProfilePicture = () => {
     setProfilePicture,
     setProfilePictureUrl,
     setComponent,
+    profilePictureUrl,
   } = useContext(UserContext);
+  const [isType, setType] = useState(true);
+  const [picture, setPicture] = useState(profilePictureUrl);
   const handleProfilePictureChange = (event) => {
     setProfilePicture(event.target.files[0]);
+    if (event.target.files[0]) {
+      setType(true);
+    }
+    setPicture(URL.createObjectURL(event.target.files[0]));
+  };
+  const handleDeletePicture = () => {
+    setType(false);
+    setPicture(avatar);
+    setShowWarned(false);
   };
   const handleProfilePictureUpdate = () => {
-    if (!profilePicture) {
-      setWarnedMessage("Please click on the update Button");
-      setShowWarned(true);
-      return;
+    if (isType) {
+      if (!profilePicture) {
+        setWarnedMessage("Please click the Pictur to upload new one!!");
+        setShowWarned(true);
+        return;
+      }
     }
+    setComponent("multi");
     setShowWarned(false);
     userDispatch({
-      type: "updateProfilePicture",
+      type: isType ? "updateProfilePicture" : "deleteProfilePicture",
       user,
       setUser,
       profilePicture,
       setShowError,
       setErrorMessage,
     });
-    // the URL.createObjectURL method, which will create a temporary URL for the updated image file.
-    setProfilePictureUrl(URL.createObjectURL(profilePicture));
+    if (isType) {
+      // the URL.createObjectURL method, which will create a temporary URL for the updated image file.
+      setProfilePictureUrl(URL.createObjectURL(profilePicture));
+    } else {
+      setProfilePictureUrl(avatar);
+    }
   };
 
   return (
     <Container style={{ marginTop: "1rem" }}>
-      <h6>Change the profile Picture</h6>
-      <Row>
-        <Col>
-          <label
-            htmlFor="profilePicture"
-            style={{
-              cursor: "pointer",
-              display: "inline-block",
-              padding: ".375rem .75rem",
-              fontSize: "1rem",
-              lineHeight: "1.5",
-              color: "#6c757d",
-              backgroundColor: "transparent",
-              border: "1px solid #6c757d",
-              borderRadius: ".25rem",
+      <Modal show={true}>
+        {showWarned && <AlertWarned />}
+        <Modal.Header className="d-flex justify-content-center">
+          <Modal.Title>Upload new Picture</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="d-flex justify-content-center">
+          <Form>
+            <Form.Group className="mb-3 " controlId="exampleForm.ControlInput1">
+              <Form.Label>
+                <Image
+                  src={picture}
+                  roundedCircle
+                  fluid
+                  style={{ width: "200px", cursor: "pointer" }}
+                />
+              </Form.Label>
+              <Form.Control
+                type="file"
+                accept="image/*"
+                onChange={handleProfilePictureChange}
+                style={{ display: "none" }}
+                autoFocus
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            style={{ marginRight: "auto" }}
+            variant="outline-danger"
+            onClick={handleDeletePicture}
+          >
+            Delete picture
+          </Button>
+          <Button
+            variant="outline-secondary"
+            onClick={() => {
+              setComponent("multi");
+              setShowWarned(false);
             }}
           >
-            Update
-          </label>
-          <input
-            id="profilePicture"
-            type="file"
-            accept="image/*"
-            onChange={handleProfilePictureChange}
-            style={{ display: "none" }}
-          />
-        </Col>
-        <Col>
-          {/* <h2>{user.fullName}</h2> */}
+            Cancel
+          </Button>
           <Button
             variant="outline-primary"
             onClick={handleProfilePictureUpdate}
           >
             Submit
           </Button>
-        </Col>
-        <Col>
-          <Button
-            variant="outline-secondary"
-            onClick={() => setComponent("multi")}
-          >
-            Cancel
-          </Button>
-        </Col>
-      </Row>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 };

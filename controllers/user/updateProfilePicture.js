@@ -19,7 +19,7 @@ const updateProfilePicture = async (req, res, next) => {
   }
   try {
     const updateImg = await User.findOneAndUpdate(
-      { _id: req.params.id },
+      { _id: req.userId },
       { imgProfile: req.files["profilePicture"][0] },
       { new: true }
     );

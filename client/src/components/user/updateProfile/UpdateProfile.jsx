@@ -1,19 +1,16 @@
 import { useContext, useEffect, useState } from "react";
 import { Button, ButtonGroup } from "react-bootstrap";
 import ChangeProfilePicture from "./changeProfilePicture/ChangeProfilePicture";
-import { UserContext } from "../../../context/User";
+import { UserContext } from "../../../context/user/User";
 import ChangePassword from "./changePassword/ChangePassword";
+import ChangeName from "./changeName/ChangeName";
 const UpdateProfile = () => {
   const { component, setComponent } = useContext(UserContext);
-  //   const [component, setActiveComponent] = useState("multi");
 
   const handleClick = (componentName) => {
     setComponent(componentName);
   };
 
-  const handleCancel = () => {
-    setComponent("multi");
-  };
   useEffect(() => setComponent("multi"), []);
 
   return (
@@ -43,10 +40,7 @@ const UpdateProfile = () => {
       ) : null}
       {component === "component3" ? (
         <div>
-          <h2>Component 3</h2>
-          <Button variant="secondary" onClick={handleCancel}>
-            Cancel
-          </Button>
+          <ChangeName />
         </div>
       ) : null}
     </div>

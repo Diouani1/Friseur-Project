@@ -1,10 +1,10 @@
 import "./singuser.css";
 import { useContext } from "react";
 import { Form, Button, InputGroup } from "react-bootstrap";
-import { UserContext } from "../../context/User";
+import { UserContext } from "../../context/user/User";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import AlertDanger from "./alert/AlertDanger.jsx";
+import AlertDanger from "../alert/AlertDanger";
 
 const SingUser = () => {
   const {

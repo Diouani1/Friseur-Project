@@ -1,9 +1,9 @@
 import { useState, useContext, useEffect, useRef } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import { UserContext } from "../../../context/User";
-import AlertDanger from "../alert/AlertDanger.jsx";
-import AlertSuccess from "../alert/AlertSuccess";
-import AlertEmail from "../alert/AlertEmail";
+import { UserContext } from "../../../context/user/User";
+import AlertDanger from "../../alert/AlertDanger";
+import AlertSuccess from "../../alert/AlertSuccess";
+import AlertEmail from "../../alert/AlertEmail";
 
 export default function () {
   const {
@@ -16,7 +16,6 @@ export default function () {
     setShowError,
     showSuccess,
     setShowSuccess,
-    successMessage,
     setSuccessMessage,
     emailAlert,
     setEmailAlert,

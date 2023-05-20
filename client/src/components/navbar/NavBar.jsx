@@ -1,16 +1,18 @@
 import "./navbar.css";
 import { Button, Container, Nav, Navbar, Offcanvas } from "react-bootstrap";
 import { Route, Routes } from "react-router-dom";
-import { UserContext } from "../../context/User";
+import { UserContext } from "../../context/user/User";
 import { useContext } from "react";
 import Main from "../main/Main";
 import VerfiyOTP from "../user/forgotPassword/OtpForm";
 import Recovered from "../user/forgotPassword/Recovered";
 import ResetPassword from "../user/forgotPassword/ResetPassword";
 import SingUser from "../user/SignUser";
+import { AdminContext } from "../../context/admin/Admin";
 const NavBar = () => {
-  const { user, component, onOff, setOnOff, navigate } =
+  const { user, setUser, component, onOff, setOnOff, navigate } =
     useContext(UserContext);
+  const { show, setShow } = useContext(AdminContext);
 
   function toggleOffOn() {
     setOnOff(!onOff);
@@ -22,9 +24,15 @@ const NavBar = () => {
     if (component === "reset-password") return <ResetPassword />;
     return <VerfiyOTP />;
   };
+  // handle logout
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    setUser(null);
+  };
   return (
     <div className="gb-nav">
       <Navbar
+        fixed="top"
         expand={false}
         className="p-2 mb-1 bg bg-nav  "
         style={{ width: "100%", margin: "0" }}
@@ -48,7 +56,7 @@ const NavBar = () => {
                 Menu
               </Offcanvas.Title>
             </Offcanvas.Header>
-            <Offcanvas.Body>
+            <Offcanvas.Body className="d-flex flex-column justify-content-between">
               <Nav>
                 <div className="">
                   {!user ? (
@@ -64,11 +72,25 @@ const NavBar = () => {
                   )}
                 </div>
               </Nav>
-              <Nav></Nav>
+              <Nav>
+                {user && (
+                  <Button variant="outline-dark" onClick={handleLogout}>
+                    Logout
+                  </Button>
+                )}
+              </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>
           <div className="">
-            <Button>Log out</Button>
+            {!user ? (
+              <Button variant="outline-light">Login</Button>
+            ) : user.role === "admin" ? (
+              <Button variant="outline-light" onClick={() => setShow(true)}>
+                Go to Reception
+              </Button>
+            ) : (
+              <Button variant="outline-light">Logout</Button>
+            )}
           </div>
         </Container>
       </Navbar>

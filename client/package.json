@@ -18,9 +18,12 @@
     "pigeon-maps": "^0.21.3",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.0",
+    "react-datepicker": "^4.11.0",
     "react-dom": "^18.2.0",
+    "react-dropzone": "^14.2.3",
     "react-hook-form": "^7.43.9",
     "react-router-dom": "^6.10.0",
+    "react-scrollbars-custom": "^4.1.1",
     "yup": "^1.0.2"
   },
   "devDependencies": {
@@ -29,6 +32,5 @@
     "@vitejs/plugin-react": "^3.1.0",
     "vite": "^4.2.0"
   },
-  "proxy": "http://localhost:5000",
   "homepage": "."
 }

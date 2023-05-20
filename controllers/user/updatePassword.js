@@ -3,11 +3,10 @@ import { hash, compare } from "bcrypt";
 
 // Update password
 const updatePassword = async (req, res) => {
-  const { id } = req.params;
   const { oldPassword, newPassword } = req.body;
 
   try {
-    const user = await User.findById(id);
+    const user = await User.findById(req.userId);
     if (!user) {
       return res.status(401).json({ message: "Unauthorized" });
     }

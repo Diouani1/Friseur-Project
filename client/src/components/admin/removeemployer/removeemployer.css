@@ -1,0 +1,30 @@
+.remove-employer{
+    border-left:  2px solid #ced4da ;
+    border-bottom:  2px solid #ced4da ; 
+    margin: 10px;
+    padding: 10px;
+}
+.delete-button{
+    border-left:  1px solid rgba(255, 0, 0, 0.5) ;
+    border-bottom:  1px solid rgba(255, 0, 0, 0.5) ;
+}
+.delete-button:hover{
+    color: red
+}
+.make-user-button{
+    border-left:  1px solid rgba(0, 0, 255, 0.5) ;
+    border-bottom:  1px solid rgba(0, 0, 255, 0.5) ;
+}
+.cancel-dev{
+    border-bottom:  2px solid #ced4da ; 
+    margin: 10px;
+    padding: 10px; 
+}
+.cancel-button{
+    border-left:  1px solid #ced4da ;
+    border-bottom:  1px solid #ced4da ;
+    border-top:  0px;
+    border-right:  0px ;
+   
+
+}

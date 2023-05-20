@@ -1,14 +1,39 @@
 import "./App.css";
-import React from "react";
-
+import React, { useContext } from "react";
 import NavBar from "./components/navbar/NavBar";
+import Reception from "./components/admin/reception/Reception";
+import { UserContext } from "./context/user/User";
+import { PostContext } from "./context/post/Post";
+import GetPost from "./components/post/getpost/GetPost";
+import AlertPostError from "./components/alert/AlertPostError";
 
 const App = () => {
+  const { posts } = useContext(PostContext);
+  const { user } = useContext(UserContext);
+  if (user) {
+    if (user.reception) return <Reception />;
+
+    return (
+      <div className="app hide-scrollbar">
+        <NavBar />
+        <AlertPostError />
+
+        <div style={{ marginTop: "5rem" }}>
+          {posts && posts.map((post) => <GetPost key={post._id} post={post} />)}
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="app">
       <NavBar />
+      <AlertPostError />
 
-      <h1>Welcom to APP Component</h1>
+      <div style={{ marginTop: "5rem" }}>
+        {posts.map((post) => (
+          <GetPost key={post._id} post={post} />
+        ))}
+      </div>
     </div>
   );
 };

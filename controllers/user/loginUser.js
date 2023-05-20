@@ -7,10 +7,14 @@ const loginUser = async (req, res, next) => {
     const user = await User.login(req.body);
     if (!user) return next(creatErr(401, "Invalid Data"));
     if (!user.verified) return next(creatErr(404, "please conform your email"));
-    const token = jwt.sign({ id: user._id }, process.env.SECRET);
-    res.cookie("token", token, {
-      expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
-    });
+    const token = jwt.sign(
+      { id: user._id, role: user.role },
+      process.env.SECRET,
+      { expiresIn: "30d" }
+    );
+    res.cookie("token", token);
+    // req.session.token = token;
+
     res.send(user);
   } catch (error) {
     next(creatErr(404, error));

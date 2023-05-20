@@ -1,0 +1,8 @@
+  /* Add a class to specific components if needed */
+
+  
+  .component-without-scrollbar {
+    overflow: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }

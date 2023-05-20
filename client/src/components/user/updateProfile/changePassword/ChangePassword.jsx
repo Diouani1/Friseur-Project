@@ -1,14 +1,12 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Form, Button, InputGroup } from "react-bootstrap";
-import { UserContext } from "../../../../context/User";
-import AlertDanger from "../../alert/AlertDanger";
-import AlertSuccess from "../../alert/AlertSuccess";
+import { UserContext } from "../../../../context/user/User";
+import AlertSuccess from "../../../alert/AlertSuccess";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 function ChangePassword() {
   const {
     user,
-    showError,
     showSuccess,
     setErrorMessage,
     userDispatch,
@@ -20,6 +18,7 @@ function ChangePassword() {
     setShowSuccess,
     setSuccessMessage,
     setComponent,
+    setLastComponent,
   } = useContext(UserContext);
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -51,6 +50,7 @@ function ChangePassword() {
     setShowNewPassword(!showNewPassword);
   const toggleRepeatPasswordVisibility = () =>
     setShowRepeatPassword(!showRepeatPassword);
+  useEffect(() => setLastComponent("multi"), []);
 
   return (
     <div className="d-flex flex-column justify-content-center align-items-center">
@@ -59,7 +59,6 @@ function ChangePassword() {
           <AlertSuccess />
         ) : (
           <Form onSubmit={handleSubmit}>
-            {showError && <AlertDanger />}
             <Form.Group className="mb-3">
               <Form.Label>Old Password</Form.Label>
               <InputGroup>
@@ -129,7 +128,10 @@ function ChangePassword() {
               </Button>
               <Button
                 variant="outline-secondary"
-                onClick={() => setComponent("multi")}
+                onClick={() => {
+                  setComponent("multi");
+                  setShowError(false);
+                }}
               >
                 Cancel
               </Button>

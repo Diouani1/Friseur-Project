@@ -10,6 +10,9 @@ import { registerUser } from "../controllers/user/registerUser.js";
 import { resetNewPassword } from "../controllers/user/resetPassword.js";
 import { profilePicture } from "../controllers/user/profilePicture.js";
 import { updateProfilePicture } from "../controllers/user/updateProfilePicture.js";
+import checkAuthToken from "../middlewares/checkAuthToken.js";
+import { addAvatar } from "../controllers/user/addAvatar.js";
+import { updateName } from "../controllers/user/updateName.js";
 const router = express.Router();
 
 const upload = multer({ dest: "uploads/" });
@@ -19,15 +22,18 @@ const fotoProfileMiddleWare = upload.fields([
 ]);
 router.get("/conform-email", conformedEmail);
 router.get("/check-email/:email", checkEmail);
-router.get("/profile-picture/:id", profilePicture);
+router.get("/profile-picture", checkAuthToken, profilePicture);
 router.post("/login", loginUser);
 router.post("/register", validRegisterInfo, registerUser, sendingEmail);
 router.post("/reset-password", resetNewPassword);
-router.put("/update-password/:id", updatePassword);
+router.put("/update-password", checkAuthToken, updatePassword);
+router.put("/update-names", checkAuthToken, updateName);
 router.put(
-  "/update-profile-picture/:id",
+  "/update-profile-picture",
+  checkAuthToken,
   fotoProfileMiddleWare,
   updateProfilePicture
 );
+router.put("/delete-profile-picture", checkAuthToken, addAvatar);
 
 export default router;

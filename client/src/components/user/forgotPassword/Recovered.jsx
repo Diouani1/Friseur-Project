@@ -1,5 +1,5 @@
 import { Container, Row, Col, Image, Alert, Button } from "react-bootstrap";
-import { UserContext } from "../../../context/User";
+import { UserContext } from "../../../context/user/User";
 import { useContext } from "react";
 
 function Recovered() {
