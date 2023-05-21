@@ -81,6 +81,41 @@ const GetPost = ({ post }) => {
     setUpdatePost(post);
     setOnOff(true);
   };
+  // handle Share post
+  const handleShare = () => {
+    if (navigator.share) {
+      let shareText = `Check out this post: ${window.location.href}`;
+
+      if (post.title) {
+        shareText += `\n\nTitle: ${post.title}`;
+      }
+
+      if (post.content) {
+        shareText += `\n\nContent: ${post.content}`;
+      }
+
+      // Add image if available
+      const image = post.postPicture
+        ? `${window.location.origin}/api/post/get-post-picture/${post._id}`
+        : null;
+
+      navigator
+        .share({
+          title: post.title,
+          text: shareText,
+          url: window.location.href,
+          files: image ? [image] : undefined,
+        })
+        .then(() => {
+          console.log("Post shared successfully.");
+        })
+        .catch((error) => {
+          console.error("Error sharing post:", error);
+        });
+    } else {
+      console.warn("Web Share API is not supported in this browser.");
+    }
+  };
 
   useEffect(() => {
     if (user) {
@@ -183,11 +218,12 @@ const GetPost = ({ post }) => {
                   >
                     <FontAwesomeIcon
                       icon={faCommentDots}
-                      style={{ fontSize: "1.5rem" }}
+                      style={{ fontSize: "1.5rem", marginRight: "5px" }}
                     />
+                    {post.comments.length}
                   </Button>
                 </div>
-                <Button variant="light">
+                <Button variant="light" onClick={handleShare}>
                   <FontAwesomeIcon
                     icon={faShare}
                     style={{ fontSize: "1.5rem" }}
