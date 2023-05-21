@@ -12,6 +12,7 @@ import { UserContext } from "../../../context/user/User";
 import { PostContext } from "../../../context/post/Post";
 import CommentComponent from "../commentcomponent/CommentComponent";
 import DeletePostModal from "./DeletePostModal";
+import SharePostModale from "./SharePostModale";
 
 const GetPost = ({ post }) => {
   const { user, setOnOff } = useContext(UserContext);
@@ -29,6 +30,7 @@ const GetPost = ({ post }) => {
   const [dislike, setDislike] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false);
 
   // Update the likes count in the database
   const handleLike = () => {
@@ -83,38 +85,7 @@ const GetPost = ({ post }) => {
   };
   // handle Share post
   const handleShare = () => {
-    if (navigator.share) {
-      let shareText = `Check out this post: ${window.location.href}`;
-
-      if (post.title) {
-        shareText += `\n\nTitle: ${post.title}`;
-      }
-
-      if (post.content) {
-        shareText += `\n\nContent: ${post.content}`;
-      }
-
-      // Add image if available
-      const image = post.postPicture
-        ? `${window.location.origin}/api/post/get-post-picture/${post._id}`
-        : null;
-
-      navigator
-        .share({
-          title: post.title,
-          text: shareText,
-          url: window.location.href,
-          files: image ? [image] : undefined,
-        })
-        .then(() => {
-          console.log("Post shared successfully.");
-        })
-        .catch((error) => {
-          console.error("Error sharing post:", error);
-        });
-    } else {
-      console.warn("Web Share API is not supported in this browser.");
-    }
+    setShowShareModal(true);
   };
 
   useEffect(() => {
@@ -234,6 +205,11 @@ const GetPost = ({ post }) => {
             <DeletePostModal
               showDeleteModal={showDeleteModal}
               setShowDeleteModal={setShowDeleteModal}
+              postId={post._id}
+            />
+            <SharePostModale
+              showShareModal={showShareModal}
+              setShowShareModal={setShowShareModal}
               postId={post._id}
             />
           </div>
