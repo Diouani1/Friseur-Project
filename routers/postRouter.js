@@ -16,6 +16,7 @@ import { deletePost } from "../controllers/post/deletePost.js";
 import { deleteReplyComment } from "../controllers/post/deleteReplyComment.js";
 import { deleteComment } from "../controllers/post/deleteComment.js";
 import { updatePost } from "../controllers/post/updatePost.js";
+import { getSharePost } from "../controllers/post/getSharePost.js";
 
 const router = express.Router();
 const upload = multer({ dest: "uploadspost/" });
@@ -29,6 +30,7 @@ router.put("/update-post", checkAuthPost, updatePost);
 router.get("/get-all-post", getAllPost);
 router.get("/get-post-picture/:id", getPostPicture);
 router.get("/profile-picture/:username", authorPicture);
+router.get("/share-post", getSharePost);
 router.put("/update-like", checkAuthToken, updateLikes);
 router.put("/update-like-comment", checkAuthToken, updateLikeComment);
 router.put(

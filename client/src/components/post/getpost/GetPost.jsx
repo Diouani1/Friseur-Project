@@ -210,7 +210,7 @@ const GetPost = ({ post }) => {
             <SharePostModale
               showShareModal={showShareModal}
               setShowShareModal={setShowShareModal}
-              postId={post._id}
+              post={post}
             />
           </div>
         </div>

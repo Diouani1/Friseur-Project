@@ -10,75 +10,89 @@ import {
 import { useContext, useEffect, useState } from "react";
 import { PostContext } from "../../../context/post/Post";
 
-const SharePostModale = ({ showShareModal, setShowShareModal, postId }) => {
+const SharePostModale = ({ showShareModal, setShowShareModal, post }) => {
   const { posts } = useContext(PostContext);
 
-  const [selectedPost, setSelectedPost] = useState(null);
+  const [selectedPost, setSelectedPost] = useState({});
+  const [postPictureUrl, setPostPictureUrl] = useState("");
 
   useEffect(() => {
-    if (postId) {
-      // Find the selected post in the posts array
-      const post = posts.find((post) => post._id === postId);
-
-      if (post) {
-        setSelectedPost(post);
+    const fetchPostPicture = async () => {
+      try {
+        const response = await fetch(`/api/post/get-post-picture/${post._id}`);
+        if (response.ok) {
+          const pictureBlob = await response.blob();
+          const pictureUrl = URL.createObjectURL(pictureBlob);
+          setPostPictureUrl(pictureUrl);
+        }
+      } catch (error) {
+        console.error("Failed to fetch post picture:", error);
       }
-    }
+    };
+
+    const fetchSelectedPost = () => {
+      const postId = post._id;
+      if (postId) {
+        // Fetch the selected post from your API or context
+        const selectedPost = posts.find((post) => post._id === postId);
+        if (selectedPost) {
+          setSelectedPost(selectedPost);
+          fetchPostPicture(); // Fetch the post picture
+        }
+      }
+    };
+
+    fetchSelectedPost();
   }, [showShareModal]);
 
-  const shareUrl = `https://barbershop-diouani.onrender.com`;
+  const shareUrl = `https://barbershop-diouani.onrender.com/?post=${selectedPost._id}`;
 
   const handleWhatsAppShare = () => {
     if (selectedPost) {
-      const shareUrl = `https://barbershop-diouani.onrender.com/?post=${selectedPost._id}`;
-      window.open(
-        `whatsapp://send?text=${encodeURIComponent(
-          selectedPost.title + " " + shareUrl
-        )}`
-      );
+      const message = `${selectedPost.title} ${shareUrl}`;
+      window.open(`whatsapp://send?text=${encodeURIComponent(message)}`);
     }
   };
 
   const handleFacebookShare = () => {
     if (selectedPost) {
-      const shareUrl = `https://barbershop-diouani.onrender.com/?post=${selectedPost._id}`;
-      window.open(
-        `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-          shareUrl
-        )}`
-      );
+      const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+        shareUrl
+      )}`;
+      window.open(facebookShareUrl);
     }
   };
 
   const handleInstagramShare = () => {
     if (selectedPost) {
-      const shareUrl = `https://barbershop-diouani.onrender.com/?post=${selectedPost._id}`;
+      const message = `${selectedPost.title} ${shareUrl}`;
       window.open(
-        `https://www.instagram.com/sharer.php?u=${encodeURIComponent(shareUrl)}`
+        `https://www.instagram.com/create/foreground?utm_source=ig_web_copy_link&background_media=${encodeURIComponent(
+          postPictureUrl
+        )}&caption=${encodeURIComponent(message)}`
       );
     }
   };
 
   const handleTikTokShare = () => {
     if (selectedPost) {
-      const shareUrl = `https://barbershop-diouani.onrender.com/?post=${selectedPost._id}`;
+      const message = `${selectedPost.title} ${shareUrl}`;
       window.open(
-        `https://www.tiktok.com/share?url=${encodeURIComponent(shareUrl)}`
+        `https://www.tiktok.com/create?is_copy_url=1&desc=${encodeURIComponent(
+          message
+        )}&imageUrl=${encodeURIComponent(postPictureUrl)}`
       );
     }
   };
 
   const handleLinkedInShare = () => {
     if (selectedPost) {
-      const shareUrl = `https://barbershop-diouani.onrender.com/?post=${selectedPost._id}`;
-      window.open(
-        `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-          shareUrl
-        )}`
-      );
+      const linkedInShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+        shareUrl
+      )}`;
+      window.open(linkedInShareUrl);
     }
   };
-
   return (
     <Modal show={showShareModal} onHide={() => setShowShareModal(false)}>
       <Modal.Header closeButton>
