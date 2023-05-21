@@ -7,45 +7,13 @@ import {
   faTiktok,
   faLinkedin,
 } from "@fortawesome/free-brands-svg-icons";
-import { useContext, useEffect, useState } from "react";
-import { PostContext } from "../../../context/post/Post";
 
-const SharePostModale = ({ showShareModal, setShowShareModal, post }) => {
-  const { posts } = useContext(PostContext);
-
-  const [selectedPost, setSelectedPost] = useState({});
-  const [postPictureUrl, setPostPictureUrl] = useState("");
-
-  useEffect(() => {
-    const fetchPostPicture = async () => {
-      try {
-        const response = await fetch(`/api/post/get-post-picture/${post._id}`);
-        if (response.ok) {
-          const pictureBlob = await response.blob();
-          const pictureUrl = URL.createObjectURL(pictureBlob);
-          setPostPictureUrl(pictureUrl);
-        }
-      } catch (error) {
-        console.error("Failed to fetch post picture:", error);
-      }
-    };
-
-    const fetchSelectedPost = () => {
-      const postId = post._id;
-      if (postId) {
-        // Fetch the selected post from your API or context
-        const selectedPost = posts.find((post) => post._id === postId);
-        if (selectedPost) {
-          setSelectedPost(selectedPost);
-          fetchPostPicture(); // Fetch the post picture
-        }
-      }
-    };
-
-    fetchSelectedPost();
-  }, [showShareModal]);
-
-  const shareUrl = `https://barbershop-diouani.onrender.com/?post=${selectedPost._id}`;
+const SharePostModale = ({
+  showShareModal,
+  setShowShareModal,
+  selectedPost,
+}) => {
+  const shareUrl = `https://barbershop-diouani.onrender.com/api/post/share-post?post=${selectedPost._id}`;
 
   const handleWhatsAppShare = () => {
     if (selectedPost) {
@@ -67,9 +35,9 @@ const SharePostModale = ({ showShareModal, setShowShareModal, post }) => {
     if (selectedPost) {
       const message = `${selectedPost.title} ${shareUrl}`;
       window.open(
-        `https://www.instagram.com/create/foreground?utm_source=ig_web_copy_link&background_media=${encodeURIComponent(
-          postPictureUrl
-        )}&caption=${encodeURIComponent(message)}`
+        `https://www.instagram.com/create/foreground?utm_source=ig_web_copy_link&caption=${encodeURIComponent(
+          message
+        )}`
       );
     }
   };
@@ -80,7 +48,7 @@ const SharePostModale = ({ showShareModal, setShowShareModal, post }) => {
       window.open(
         `https://www.tiktok.com/create?is_copy_url=1&desc=${encodeURIComponent(
           message
-        )}&imageUrl=${encodeURIComponent(postPictureUrl)}`
+        )}`
       );
     }
   };
@@ -93,6 +61,7 @@ const SharePostModale = ({ showShareModal, setShowShareModal, post }) => {
       window.open(linkedInShareUrl);
     }
   };
+
   return (
     <Modal show={showShareModal} onHide={() => setShowShareModal(false)}>
       <Modal.Header closeButton>
