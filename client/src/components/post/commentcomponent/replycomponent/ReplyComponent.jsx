@@ -18,6 +18,7 @@ const ReplyComponent = ({ replyComments, commentId, postId }) => {
     setUpdate,
     setShowGetPostError,
     setGetPostError,
+    posts,
   } = useContext(PostContext);
 
   const [replyComment, setReplyComment] = useState("");
@@ -36,7 +37,7 @@ const ReplyComponent = ({ replyComments, commentId, postId }) => {
       setGetPostError,
     });
   };
-  useEffect(() => setUpdate(!update), [post]);
+  useEffect(() => setUpdate(!update), [posts]);
 
   return (
     <div

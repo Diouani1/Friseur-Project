@@ -21,6 +21,7 @@ const CommentComponent = ({ comments, postId }) => {
     setUpdate,
     setShowGetPostError,
     setGetPostError,
+    posts,
   } = useContext(PostContext);
   const { user } = useContext(UserContext);
   const [newComment, setNewComment] = useState("");
@@ -38,7 +39,7 @@ const CommentComponent = ({ comments, postId }) => {
       setGetPostError,
     });
   };
-  useEffect(() => setUpdate(!update), [post]);
+  useEffect(() => setUpdate(!update), [posts]);
 
   return (
     <div
