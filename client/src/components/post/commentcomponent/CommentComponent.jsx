@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   Container,
   Form,
@@ -38,6 +38,7 @@ const CommentComponent = ({ comments, postId }) => {
       setGetPostError,
     });
   };
+  useEffect(() => setUpdate(!update), [post]);
 
   return (
     <div

@@ -87,6 +87,7 @@ const GetPost = ({ post }) => {
       setDislike(post.dislikes.includes(user._id));
       setLike(post.likes.includes(user._id));
     }
+    setUpdate(!update);
   }, [posts]);
 
   return (
