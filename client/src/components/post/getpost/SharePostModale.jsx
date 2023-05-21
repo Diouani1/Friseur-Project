@@ -16,13 +16,12 @@ const SharePostModale = ({ showShareModal, setShowShareModal, postId }) => {
   const [selectedPost, setSelectedPost] = useState(null);
 
   useEffect(() => {
-    console.log(postId);
     if (postId) {
       // Find the selected post in the posts array
-      const post1 = posts.find((post) => post._id === postId);
+      const post = posts.find((post) => post._id === postId);
 
-      if (post1) {
-        setSelectedPost(post1);
+      if (post) {
+        setSelectedPost(post);
       }
     }
   }, [showShareModal]);
@@ -31,7 +30,7 @@ const SharePostModale = ({ showShareModal, setShowShareModal, postId }) => {
 
   const handleWhatsAppShare = () => {
     if (selectedPost) {
-      const shareUrl = `https://barbershop-diouani.onrender.com/?post=${selectedPost.id}`;
+      const shareUrl = `https://barbershop-diouani.onrender.com/?post=${selectedPost._id}`;
       window.open(
         `whatsapp://send?text=${encodeURIComponent(
           selectedPost.title + " " + shareUrl
@@ -42,7 +41,7 @@ const SharePostModale = ({ showShareModal, setShowShareModal, postId }) => {
 
   const handleFacebookShare = () => {
     if (selectedPost) {
-      const shareUrl = `https://barbershop-diouani.onrender.com/?post=${selectedPost.id}`;
+      const shareUrl = `https://barbershop-diouani.onrender.com/?post=${selectedPost._id}`;
       window.open(
         `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
           shareUrl
@@ -53,7 +52,7 @@ const SharePostModale = ({ showShareModal, setShowShareModal, postId }) => {
 
   const handleInstagramShare = () => {
     if (selectedPost) {
-      const shareUrl = `https://barbershop-diouani.onrender.com/?post=${selectedPost.id}`;
+      const shareUrl = `https://barbershop-diouani.onrender.com/?post=${selectedPost._id}`;
       window.open(
         `https://www.instagram.com/sharer.php?u=${encodeURIComponent(shareUrl)}`
       );
@@ -62,7 +61,7 @@ const SharePostModale = ({ showShareModal, setShowShareModal, postId }) => {
 
   const handleTikTokShare = () => {
     if (selectedPost) {
-      const shareUrl = `https://barbershop-diouani.onrender.com/?post=${selectedPost.id}`;
+      const shareUrl = `https://barbershop-diouani.onrender.com/?post=${selectedPost._id}`;
       window.open(
         `https://www.tiktok.com/share?url=${encodeURIComponent(shareUrl)}`
       );
@@ -71,7 +70,7 @@ const SharePostModale = ({ showShareModal, setShowShareModal, postId }) => {
 
   const handleLinkedInShare = () => {
     if (selectedPost) {
-      const shareUrl = `https://barbershop-diouani.onrender.com/?post=${selectedPost.id}`;
+      const shareUrl = `https://barbershop-diouani.onrender.com/?post=${selectedPost._id}`;
       window.open(
         `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
           shareUrl
