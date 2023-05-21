@@ -12,7 +12,7 @@ dotenv.config();
 
 connect();
 const app = express();
-app.use(express.static(path.resolve("./", "client/build")));
+app.use(express.static(path.resolve("./", "client/dist")));
 
 app.use(express.json());
 app.use(cookiesParser());
@@ -33,7 +33,7 @@ app.use(
 
 app.use("/api", router);
 app.get("*", (req, res) => {
-  const navToLogin = path.resolve("./", "client/build/index.html");
+  const navToLogin = path.resolve("./", "client/dist/index.html");
 
   res.sendFile(navToLogin);
 });
@@ -45,4 +45,7 @@ app.use((err, req, res, next) => {
 });
 
 const port = process.env.PORT;
-app.listen(port, console.log(`Server listening on port....${port}`));
+app.listen(
+  port,
+  console.log(`Server listening on port... http://localhost:${port}`)
+);
