@@ -81,7 +81,11 @@ const NavBar = () => {
               </Nav>
               <Nav>
                 {user && (
-                  <Button variant="outline-dark" onClick={handleLogout}>
+                  <Button
+                    variant="outline-dark"
+                    style={{ borderTop: "none", borderRight: "none" }}
+                    onClick={handleLogout}
+                  >
                     Logout
                   </Button>
                 )}

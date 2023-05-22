@@ -55,7 +55,11 @@ const SocialMedia = () => {
               <Button variant="outline-primary" onClick={handleFacebookClick}>
                 <FontAwesomeIcon icon={faFacebook} />
               </Button>
-              <Button variant="outline-link" onClick={handleFacebookClick}>
+              <Button
+                className="flex-shrink-0"
+                variant="outline-link"
+                onClick={handleFacebookClick}
+              >
                 @Barber-Shop-FaceBook-Pge
               </Button>
             </div>
@@ -63,7 +67,11 @@ const SocialMedia = () => {
               <Button variant="outline-dark" onClick={handleInstagramClick}>
                 <FontAwesomeIcon icon={faInstagram} />
               </Button>
-              <Button variant="outline-link" onClick={handleInstagramClick}>
+              <Button
+                className="flex-shrink-0"
+                variant="outline-link"
+                onClick={handleInstagramClick}
+              >
                 @Barber-Shop-Instegram-Pge
               </Button>
             </div>
@@ -71,7 +79,11 @@ const SocialMedia = () => {
               <Button variant="outline-danger" onClick={handleYoutubeClick}>
                 <FontAwesomeIcon icon={faYoutube} />
               </Button>
-              <Button variant="outline-link" onClick={handleYoutubeClick}>
+              <Button
+                className="flex-shrink-0"
+                variant="outline-link"
+                onClick={handleYoutubeClick}
+              >
                 @Barber-Shop-YouTube-Chanel
               </Button>
             </div>
@@ -79,7 +91,11 @@ const SocialMedia = () => {
               <Button variant="outline-primary" onClick={handleLinkedInClick}>
                 <FontAwesomeIcon icon={faLinkedin} />
               </Button>
-              <Button variant="outline-link" onClick={handleLinkedInClick}>
+              <Button
+                className="flex-shrink-0"
+                variant="outline-link"
+                onClick={handleLinkedInClick}
+              >
                 @Your-LinkedIn-Profile
               </Button>
             </div>
@@ -87,7 +103,11 @@ const SocialMedia = () => {
               <Button variant="outline-dark" onClick={handleTiktokClick}>
                 <FontAwesomeIcon icon={faTiktok} />
               </Button>
-              <Button variant="outline-link" onClick={handleTiktokClick}>
+              <Button
+                className="flex-shrink-0"
+                variant="outline-link"
+                onClick={handleTiktokClick}
+              >
                 @Barber-Shop-TikTok-Pge
               </Button>
             </div>

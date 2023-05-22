@@ -46,14 +46,8 @@ const ReplyComponent = ({ replyComments, commentId, postId }) => {
         justifyContent: "end",
       }}
     >
-      <div
-        style={{
-          background: "rgba(0, 0, 0, 1)",
-          color: "white",
-          width: "70%",
-        }}
-      >
-        <Container>
+      <div className="replydiv">
+        <Container style={{ paddingRight: "0" }}>
           <Col style={{ margin: "1rem 0 0" }}>
             <Form onSubmit={handleSubmit}>
               <Form.Group
@@ -90,11 +84,10 @@ const ReplyComponent = ({ replyComments, commentId, postId }) => {
                       <FontAwesomeIcon
                         icon={faLocationArrow}
                         style={{
-                          fontSize: "2rem",
                           color: "black",
                           transition: "color 0.3s ease",
                         }}
-                        className="icon-hover"
+                        className="icon-hover faArrow"
                       />
                     </Button>
                   </OverlayTrigger>

@@ -163,26 +163,13 @@ const GetPost = ({ post }) => {
               <Card.Footer className="d-flex justify-content-between">
                 <div>
                   <Button variant="light" onClick={handleLike}>
-                    <FontAwesomeIcon
-                      className="mobile"
-                      icon={faThumbsUp}
-                      // style={{
-                      //   fontSize: "1.5rem",
-                      //   marginRight: "5px",
-                      //   color: like ? "blue" : "inherit",
-                      // }}
-                    />
+                    <FontAwesomeIcon className="iconMobile" icon={faThumbsUp} />
                     {post.likes.length}
                   </Button>
                   <Button variant="light" onClick={handleDislike}>
                     <FontAwesomeIcon
-                      className="mobile"
+                      className="iconMobile"
                       icon={faThumbsDown}
-                      // style={{
-                      //   fontSize: "1.5rem",
-                      //   marginRight: "5px",
-                      //   color: dislike ? "red" : "inherit",
-                      // }}
                     />
                     {post.dislikes.length}
                   </Button>
@@ -192,19 +179,14 @@ const GetPost = ({ post }) => {
                     style={{ marginLeft: "1rem" }}
                   >
                     <FontAwesomeIcon
-                      className="mobile"
+                      className="iconMobile"
                       icon={faCommentDots}
-                      // style={{ fontSize: "1.5rem", marginRight: "5px" }}
                     />
                     {post.comments.length}
                   </Button>
                 </div>
                 <Button variant="light" onClick={handleShare}>
-                  <FontAwesomeIcon
-                    className="mobile"
-                    icon={faShare}
-                    // style={{ fontSize: "1.5rem" }}
-                  />
+                  <FontAwesomeIcon className="iconMobile" icon={faShare} />
                 </Button>
               </Card.Footer>
             </Card>

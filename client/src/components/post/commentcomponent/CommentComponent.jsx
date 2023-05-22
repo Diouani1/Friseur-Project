@@ -70,8 +70,8 @@ const CommentComponent = ({ comments, postId }) => {
             }}
           >
             <Image
+              className="imgMobile"
               src={`/api/post/profile-picture/${user.userName}`}
-              style={{ width: "3rem", borderRadius: "50%" }}
             />
             <Form onSubmit={handleSubmit}>
               <Form.Group
@@ -97,11 +97,10 @@ const CommentComponent = ({ comments, postId }) => {
                     <FontAwesomeIcon
                       icon={faLocationArrow}
                       style={{
-                        fontSize: "2rem",
                         color: "white",
                         transition: "color 0.3s ease",
                       }}
-                      className="icon-hover"
+                      className="icon-hover faArrow"
                     />
                   </Button>
                 </OverlayTrigger>

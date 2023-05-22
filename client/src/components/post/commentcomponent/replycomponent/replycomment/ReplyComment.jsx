@@ -89,8 +89,8 @@ const ReplyComment = ({ item, commentId, postId }) => {
       }}
     >
       <Image
+        className="imgMobile"
         src={`/api/post/profile-picture/${item.author.userName}`}
-        style={{ width: "3rem", borderRadius: "50%" }}
       />
       <Card
         style={{

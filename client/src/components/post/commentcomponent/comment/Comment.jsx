@@ -99,7 +99,7 @@ const Comment = ({ item, postId }) => {
       >
         <Image
           src={`/api/post/profile-picture/${item.author.userName}`}
-          style={{ width: "3rem", borderRadius: "50%" }}
+          className="imgMobile"
         />
         <Card
           style={{
@@ -156,13 +156,9 @@ const Comment = ({ item, postId }) => {
                   </Dropdown>
                 ) : (
                   <Button
-                    className="position-absolute top-0 end-0 m-1"
+                    className="position-absolute top-0 end-0  faEllipsis"
                     variant="light"
                     onClick={handleOptions}
-                    style={{
-                      backgroundColor: "transparent",
-                      border: "none",
-                    }}
                   >
                     <FontAwesomeIcon icon={faEllipsis} />
                   </Button>

@@ -18,7 +18,7 @@ function Admin({ children }) {
     telephone: "",
   });
   const [services] = useState([
-    { id: 1, name: "Haircut", price: "20" },
+    { id: 1, name: "Haircut", price: "16" },
     { id: 2, name: "Shave", price: "15" },
     { id: 3, name: "Beard Trim", price: "10" },
     { id: 4, name: "Wash Hair", price: "25" },

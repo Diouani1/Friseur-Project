@@ -1,7 +1,26 @@
   /* Add a class to specific components if needed */
-  .mobile{
+  .iconMobile{
     font-size: 1.5rem;
      margin-right : 5px;
+  }
+  .faArrow{
+font-size: 2rem;
+  }
+  .imgMobile{
+    width: 3rem;
+     border-radius: 50%;
+
+  }
+  .faEllipsis{
+    background-color: transparent;
+    border: none;
+  }
+  .replydiv{
+  
+      background: rgba(0, 0, 0, 1);
+      color: white;
+      width: 70%;
+   
   }
   
   .component-without-scrollbar {
@@ -11,10 +30,23 @@
   }
   @media (max-width: 768px) {
     body {
-      font-size: 60%; /* Reduce the font size to 60% */
+      font-size: 70%; /* Reduce the font size to 60% */
     }
-    .mobile{
-      font-size: 60%;
+    .iconMobile{
+      font-size: 80%;
     }
+    .imgMobile{
+    width: 2rem;
+  
+    }
+    .faArrow{
+      font-size: 1.5rem;
+        }
+    .replydiv{
+  
+      background: rgba(0, 0, 0, 1);
+       width: 95%;
+       
+      }
   }
   
