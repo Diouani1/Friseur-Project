@@ -142,17 +142,17 @@ const SingUser = () => {
                   />
                 </InputGroup>
               </Form.Group>
-              <Form.Group className="mb-3 d-flex align-items-center">
+              <Form.Group className="mb-3 d-flex align-items-center justify-content-between">
                 <Form.Check
                   type="checkbox"
                   id="remember-me-checkbox"
                   label="Remember me"
                   checked={rememberMe}
                   onChange={handleRememberMe}
+                  style={{ marginTop: "7px" }}
                 />
                 <span
-                  className="ms-4 link-primary"
-                  // onClick={() => navigate("/forgot-password")}
+                  className=" link-primary"
                   onClick={() => {
                     setShowError(false);
                     setModeType("password");
