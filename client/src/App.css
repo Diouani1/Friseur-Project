@@ -1,5 +1,8 @@
   /* Add a class to specific components if needed */
-
+  .mobile{
+    font-size: 1.5rem;
+     margin-right : 5px;
+  }
   
   .component-without-scrollbar {
     overflow: auto;
@@ -9,6 +12,9 @@
   @media (max-width: 768px) {
     body {
       font-size: 60%; /* Reduce the font size to 60% */
+    }
+    .mobile{
+      font-size: 60%;
     }
   }
   

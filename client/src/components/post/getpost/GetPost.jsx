@@ -164,23 +164,25 @@ const GetPost = ({ post }) => {
                 <div>
                   <Button variant="light" onClick={handleLike}>
                     <FontAwesomeIcon
+                      className="mobile"
                       icon={faThumbsUp}
-                      style={{
-                        fontSize: "1.5rem",
-                        marginRight: "5px",
-                        color: like ? "blue" : "inherit",
-                      }}
+                      // style={{
+                      //   fontSize: "1.5rem",
+                      //   marginRight: "5px",
+                      //   color: like ? "blue" : "inherit",
+                      // }}
                     />
                     {post.likes.length}
                   </Button>
                   <Button variant="light" onClick={handleDislike}>
                     <FontAwesomeIcon
+                      className="mobile"
                       icon={faThumbsDown}
-                      style={{
-                        fontSize: "1.5rem",
-                        marginRight: "5px",
-                        color: dislike ? "red" : "inherit",
-                      }}
+                      // style={{
+                      //   fontSize: "1.5rem",
+                      //   marginRight: "5px",
+                      //   color: dislike ? "red" : "inherit",
+                      // }}
                     />
                     {post.dislikes.length}
                   </Button>
@@ -190,16 +192,18 @@ const GetPost = ({ post }) => {
                     style={{ marginLeft: "1rem" }}
                   >
                     <FontAwesomeIcon
+                      className="mobile"
                       icon={faCommentDots}
-                      style={{ fontSize: "1.5rem", marginRight: "5px" }}
+                      // style={{ fontSize: "1.5rem", marginRight: "5px" }}
                     />
                     {post.comments.length}
                   </Button>
                 </div>
                 <Button variant="light" onClick={handleShare}>
                   <FontAwesomeIcon
+                    className="mobile"
                     icon={faShare}
-                    style={{ fontSize: "1.5rem" }}
+                    // style={{ fontSize: "1.5rem" }}
                   />
                 </Button>
               </Card.Footer>
