@@ -15,7 +15,7 @@ import DeletePostModal from "./DeletePostModal";
 import SharePostModale from "./SharePostModale";
 
 const GetPost = ({ post }) => {
-  const { user, setOnOff } = useContext(UserContext);
+  const { user, setOnOff, onOff } = useContext(UserContext);
   const {
     postDispatch,
     setUpdate,
@@ -25,12 +25,12 @@ const GetPost = ({ post }) => {
     setGetPostError,
     setUpdatePost,
   } = useContext(PostContext);
-  const [showComment, setShowComment] = useState(false);
   const [like, setLike] = useState(false);
   const [dislike, setDislike] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
+  const [showComment, setShowComment] = useState(false);
 
   // Update the likes count in the database
   const handleLike = () => {
@@ -64,6 +64,8 @@ const GetPost = ({ post }) => {
       post,
       setUpdate,
       update,
+      setShowGetPostError,
+      setGetPostError,
     });
   };
   // show the comment
@@ -94,7 +96,7 @@ const GetPost = ({ post }) => {
       setLike(post.likes.includes(user._id));
     }
   }, [posts]);
-
+  useEffect(() => setShowComment(false), [onOff]);
   return (
     <div
       className="container "

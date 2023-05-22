@@ -18,15 +18,15 @@ function Admin({ children }) {
     telephone: "",
   });
   const [services] = useState([
-    { name: "Haircut", price: "20" },
-    { name: "Shave", price: "15" },
-    { name: "Beard Trim", price: "10" },
-    { name: "Haircut", price: "20" },
-    { name: "Shave", price: "15" },
-    { name: "Beard Trim", price: "10" },
-    { name: "Haircut", price: "20" },
-    { name: "Shave", price: "15" },
-    { name: "Beard Trim", price: "10" },
+    { id: 1, name: "Haircut", price: "20" },
+    { id: 2, name: "Shave", price: "15" },
+    { id: 3, name: "Beard Trim", price: "10" },
+    { id: 4, name: "Wash Hair", price: "25" },
+    { id: 5, name: "Facial Massage", price: "30" },
+    { id: 6, name: "Hair Styling", price: "25" },
+    { id: 7, name: "Hot Towel Treatment", price: "15" },
+    { id: 8, name: "Head Shave", price: "18" },
+    { id: 9, name: "Neck Trim", price: "8" },
   ]);
   const [worker, setWorker] = useState("");
   const [state, adminDispatch] = useReducer(reducer, {});

@@ -4,6 +4,8 @@ import { Container, ListGroup, Modal, Button } from "react-bootstrap";
 import { AdminContext } from "../../../../context/admin/Admin";
 import { UserContext } from "../../../../context/user/User";
 import AlertDanger from "../../../alert/AlertDanger";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const Service = () => {
   const { modalShow, setModalShow, services, worker, adminDispatch } =
@@ -20,6 +22,12 @@ const Service = () => {
   const handleServiceClick = (service) => {
     setSelectedService([...selectedService, service]);
   };
+
+  const handleDelete = (service) => {
+    const deleted = selectedService.filter((item) => item !== service);
+    setSelectedService(deleted);
+  };
+
   const handleTotalePrice = () =>
     setTotalPrice(
       selectedService.reduce((total, s) => total + parseInt(s.price), 0)
@@ -60,26 +68,46 @@ const Service = () => {
       </Modal.Header>
       <Modal.Body>
         <Container>
-          <ListGroup
-            style={{
-              display: "flex",
-              gap: "10px",
-            }}
-          >
-            {services.map((service, index) => (
-              <Button
-                variant="outline-info"
-                key={index}
-                active={selectedService.includes(service)}
-                onClick={() => handleServiceClick(service)}
-                className={`list-group-item ${
-                  selectedService.includes(service) ? "clicked" : ""
-                } d-flex justify-content-between`}
-              >
-                <span> {service.name}</span>
-                <span>{service.price} € </span>
-              </Button>
-            ))}
+          <ListGroup style={{ display: "flex", gap: "10px" }}>
+            {services.map((service, index) => {
+              const selectedCount = selectedService.filter(
+                (item) => item === service
+              ).length;
+              const multipliedPrice = service.price * selectedCount;
+
+              return (
+                <div style={{ position: "relative" }} key={service.id}>
+                  <Button
+                    style={{ width: "100%" }}
+                    variant="outline-info"
+                    active={selectedService.includes(service)}
+                    onClick={() => handleServiceClick(service)}
+                    className={`list-group-item ${
+                      selectedService.includes(service) ? "clicked" : ""
+                    } d-flex justify-content-between`}
+                  >
+                    <span>
+                      {service.name} ({selectedCount})
+                    </span>
+                    <span className="mx-4">{multipliedPrice} €</span>
+                  </Button>
+                  <Button
+                    style={{
+                      position: "absolute",
+                      right: "0",
+                      top: "0",
+                      zIndex: "5",
+                      border: "none",
+                      backgroundColor: "transparent",
+                    }}
+                    variant="outline-danger"
+                    onClick={() => handleDelete(service)}
+                  >
+                    <FontAwesomeIcon icon={faTrash} />
+                  </Button>
+                </div>
+              );
+            })}
 
             <div className="d-flex justify-content-between">
               <Button variant="outline-primary" onClick={handleTotalePrice}>

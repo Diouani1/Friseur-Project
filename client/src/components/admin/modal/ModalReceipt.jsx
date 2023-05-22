@@ -24,7 +24,18 @@ const ModalReceipt = () => {
               {receiptData &&
                 receiptData.map((item, index) => (
                   <Card key={item._id} className="mb-3">
-                    <Card.Header>Order # {index + 1}</Card.Header>
+                    <Card.Header className="d-flex  justify-content-between align-items-center">
+                      <span>Order # {index + 1}</span>
+                      <span>
+                        {new Date(item.createdAt).toLocaleDateString("en-US", {
+                          year: "numeric",
+                          month: "2-digit",
+                          day: "2-digit",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
+                      </span>
+                    </Card.Header>
                     <Card.Body>
                       <ListGroup>
                         {item.services.map((service, i) => (
@@ -56,7 +67,7 @@ const ModalReceipt = () => {
         </Modal.Body>
         <Modal.Footer>
           <Button
-            variant="secondary"
+            variant="outline-dark"
             onClick={() => setShowReceiptModal(false)}
           >
             Close

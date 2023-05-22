@@ -4,7 +4,7 @@ import { Button } from "react-bootstrap";
 import { UserContext } from "../../../context/user/User";
 
 const AdminNav = () => {
-  const { setComponent } = useContext(UserContext);
+  const { setComponent, setShowAppointmentModal } = useContext(UserContext);
 
   return (
     <div className="adminnav">
@@ -24,6 +24,13 @@ const AdminNav = () => {
               onClick={() => setComponent("getreceipt")}
             >
               Get Receipts
+            </Button>
+            <Button
+              className="adminnav-button"
+              variant="outline-link"
+              onClick={() => setShowAppointmentModal(true)}
+            >
+              Appointment
             </Button>
             <Button
               className="adminnav-button"

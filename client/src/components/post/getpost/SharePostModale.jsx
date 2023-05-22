@@ -13,7 +13,7 @@ const SharePostModale = ({
   setShowShareModal,
   selectedPost,
 }) => {
-  const shareUrl = `https://barbershop-diouani.onrender.com/api/post/share-post?post=${selectedPost._id}`;
+  const shareUrl = `https://barbershop-diouani.onrender.com/?post=${selectedPost._id}`;
 
   const handleWhatsAppShare = () => {
     if (selectedPost) {

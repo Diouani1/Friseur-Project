@@ -34,6 +34,10 @@ function User({ children }) {
   const [onOff, setOnOff] = useState(false);
   const [component, setComponent] = useState("");
   const [lastComponet, setLastComponent] = useState("");
+  const [showDeleteAcountModal, setShowDeleteAcountModal] = useState(false);
+
+  // this is temporal
+  const [showAppointmentModal, setShowAppointmentModal] = useState(false);
 
   return (
     <UserContext.Provider
@@ -79,6 +83,10 @@ function User({ children }) {
         setProfilePictureUrl,
         lastComponet,
         setLastComponent,
+        showAppointmentModal,
+        setShowAppointmentModal,
+        showDeleteAcountModal,
+        setShowDeleteAcountModal,
       }}
     >
       {children}

@@ -40,7 +40,7 @@ const UpdatePost = () => {
     <div style={{ marginTop: "1rem", color: "darkblue" }}>
       <div className="d-flex flex-column justify-content-center align-items-center">
         <div className="p-4 shadow-lg rounded border border-gray-300 bg-white w-100">
-          <h5 className="mb-4 text-center font-weight-bold">Add new Post</h5>
+          <h5 className="mb-4 text-center font-weight-bold">Update Post</h5>
           <Form onSubmit={handleUpdate}>
             <Form.Group controlId="formTitle" className="mb-3">
               <Form.Label>Title</Form.Label>

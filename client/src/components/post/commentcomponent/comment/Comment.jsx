@@ -21,7 +21,6 @@ import {
 import ReplyComponent from "../replycomponent/ReplyComponent";
 import { getTimeDifference } from "../getTime";
 const Comment = ({ item, postId }) => {
-  console.log(item);
   const {
     postDispatch,
     setUpdate,

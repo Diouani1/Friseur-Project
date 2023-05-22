@@ -165,7 +165,7 @@ const SingUser = () => {
               </Form.Group>
 
               <div className="d-grid gap-2 ">
-                <Button type="submit" className="btn btn-primary  ">
+                <Button type="submit" variant="outline-primary">
                   Login
                 </Button>
               </div>
@@ -271,7 +271,7 @@ const SingUser = () => {
                 </InputGroup>
               </Form.Group>
               <div className="d-grid gap-2 ">
-                <Button type="submit" className="btn btn-primary  ">
+                <Button type="submit" variant="outline-primary">
                   Register
                 </Button>
               </div>
@@ -316,7 +316,7 @@ const SingUser = () => {
               />
             </Form.Group>
             <div className="d-grid gap-2 ">
-              <Button type="submit" className="btn btn-primary  ">
+              <Button type="submit" variant="outline-primary">
                 Submit
               </Button>
             </div>

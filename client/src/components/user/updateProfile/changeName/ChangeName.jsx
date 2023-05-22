@@ -69,7 +69,7 @@ const ChangeName = () => {
               />
             </Form.Group>
             <div className="d-grid gap-2 ">
-              <Button type="submit" className="btn btn-primary ">
+              <Button type="submit" variant="outline-dark ">
                 Submit Change
               </Button>
               <Button

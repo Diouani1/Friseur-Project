@@ -3,7 +3,7 @@ import ModalReception from "../modal/ModalReception";
 import ReceptionNavBar from "./receptionheader/ReceptionHeader";
 import EmployerCard from "./employercard/EmployerCard";
 import Service from "./serveice/Service";
-
+import AppointmentModal from "../../appointment/AppointmentModal";
 const Reception = () => {
   return (
     <>
@@ -12,6 +12,7 @@ const Reception = () => {
       {/* modal and alert */}
       <ModalReception />
       <Service />
+      <AppointmentModal />
     </>
   );
 };

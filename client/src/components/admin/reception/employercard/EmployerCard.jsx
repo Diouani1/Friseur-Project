@@ -24,7 +24,7 @@ const EmployerCard = () => {
   };
 
   return (
-    <Container style={{ marginTop: "5%" }}>
+    <Container style={{ marginTop: "3%" }}>
       <Row className="justify-content-center" style={{ gap: "1rem" }}>
         {showError && <AlertDanger />}
         {employerCard &&
@@ -40,9 +40,9 @@ const EmployerCard = () => {
                 <AlertSuccess />
               ) : (
                 <Card
-                  onClick={() => handleCardClick(employer._id)}
                   style={{
                     width: "18rem",
+                    height: "500px",
                     padding: "1rem",
                     boxShadow: "2px 4px 8px  rgba(0, 0, 0, 0.7)",
                   }}
@@ -53,15 +53,21 @@ const EmployerCard = () => {
                         width: "200px",
                         height: "auto",
                         maxWidth: "100%",
+                        borderRadius: "50%",
                       }}
                       variant="top"
                       src={`/api/admin/get-employer-picture/${employer.userName}`}
                     />
                   </div>
-                  <Card.Body className="d-flex flex-column align-items-center">
-                    <Card.Title>{employer.fullName.toUpperCase()}</Card.Title>
+                  <Card.Body className="d-flex flex-column align-items-around justify-content-around">
+                    <Card.Title className="text-center">
+                      {employer.fullName.toUpperCase()}
+                    </Card.Title>
+                    <Card.Title className="text-center">
+                      {employer.telephone}
+                    </Card.Title>
                     <Button
-                      variant="dark"
+                      variant="outline-dark"
                       onClick={() => handleService(employer)}
                     >
                       Add Service

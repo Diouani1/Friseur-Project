@@ -10,10 +10,16 @@ import ResetPassword from "../user/forgotPassword/ResetPassword";
 import SingUser from "../user/SignUser";
 import { AdminContext } from "../../context/admin/Admin";
 const NavBar = () => {
-  const { user, setUser, component, onOff, setOnOff, navigate } =
-    useContext(UserContext);
+  const {
+    user,
+    setUser,
+    component,
+    onOff,
+    setOnOff,
+    navigate,
+    setShowAppointmentModal,
+  } = useContext(UserContext);
   const { show, setShow } = useContext(AdminContext);
-
   function toggleOffOn() {
     setOnOff(!onOff);
     navigate("/");
@@ -29,6 +35,7 @@ const NavBar = () => {
     localStorage.removeItem("user");
     setUser(null);
   };
+
   return (
     <div className="gb-nav">
       <Navbar
@@ -88,9 +95,16 @@ const NavBar = () => {
               <Button variant="outline-light" onClick={() => setShow(true)}>
                 Go to Reception
               </Button>
-            ) : (
-              <Button variant="outline-light">Logout</Button>
-            )}
+            ) : user.role === "user" ? (
+              <Button variant="outline-light">Book Appointment</Button>
+            ) : user.role === "employer" ? (
+              <Button
+                variant="outline-light"
+                onClick={() => setShowAppointmentModal(true)}
+              >
+                Booked Appointment
+              </Button>
+            ) : null}
           </div>
         </Container>
       </Navbar>

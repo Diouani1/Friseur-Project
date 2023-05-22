@@ -103,7 +103,7 @@ const GetReceipt = () => {
             </Form.Group>
             <div className="d-grid gap-2 ">
               <Button
-                variant="outline-primary"
+                variant="outline-dark"
                 type="submit"
                 // className="btn btn-primary "
               >

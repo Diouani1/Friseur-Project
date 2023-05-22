@@ -14,7 +14,7 @@ const AddPostForm = () => {
     setUpdate,
     update,
   } = useContext(PostContext);
-  const { setComponent, setErrorMessage, setShowError, setOnOff } =
+  const { setComponent, setErrorMessage, setShowError, setOnOff, user } =
     useContext(UserContext);
   const [selectedFile, setSelectedFile] = useState("");
 
@@ -43,6 +43,12 @@ const AddPostForm = () => {
       setUpdate,
       update,
     });
+  };
+  const handleCancel = () => {
+    setShowError(false);
+    return user && user.role === "admin"
+      ? setComponent("adminnav")
+      : setComponent("employer-nav");
   };
 
   return (
@@ -90,13 +96,7 @@ const AddPostForm = () => {
               <Button type="submit" variant="outline-primary">
                 Submit The Post
               </Button>
-              <Button
-                variant="outline-secondary"
-                onClick={() => {
-                  setComponent("adminnav");
-                  setShowError(false);
-                }}
-              >
+              <Button variant="outline-secondary" onClick={handleCancel}>
                 Cancel
               </Button>
             </div>
