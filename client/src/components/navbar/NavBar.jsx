@@ -83,7 +83,11 @@ const NavBar = () => {
                 {user && (
                   <Button
                     variant="outline-dark"
-                    style={{ borderTop: "none", borderRight: "none" }}
+                    style={{
+                      borderTop: "none",
+                      borderRight: "none",
+                      marginTop: "1.5rem",
+                    }}
                     onClick={handleLogout}
                   >
                     Logout

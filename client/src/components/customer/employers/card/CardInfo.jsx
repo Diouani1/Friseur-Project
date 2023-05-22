@@ -22,11 +22,9 @@ const CardInfo = () => {
             <div className="d-flex justify-content-center">
               <Card.Img
                 style={{
-                  width: "200px",
-                  height: "auto",
-                  maxWidth: "100%",
                   borderRadius: "50%",
                 }}
+                className="profileImg"
                 variant="top"
                 src={`/api/post/profile-picture/${selectedEmployer.userName}`}
               />

@@ -54,7 +54,8 @@ const UserProfile = () => {
               src={profilePictureUrl}
               roundedCircle
               fluid
-              style={styles.image}
+              // style={styles.image}
+              className="profileImg"
             />
           </div>
         </Col>
