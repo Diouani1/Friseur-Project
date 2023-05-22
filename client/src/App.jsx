@@ -6,7 +6,7 @@ import { UserContext } from "./context/user/User";
 import { PostContext } from "./context/post/Post";
 import GetPost from "./components/post/getpost/GetPost";
 import AlertPostError from "./components/alert/AlertPostError";
-import AppointmentModal from "./components/appointment/AppointmentModal";
+import AppointmentModal from "./components/appointmentcomponent/AppointmentModal";
 import DeleteAccount from "./components/customer/modal/DeleteAccountModale";
 
 const App = () => {

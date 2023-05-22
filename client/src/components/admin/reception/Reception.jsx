@@ -3,7 +3,7 @@ import ModalReception from "../modal/ModalReception";
 import ReceptionNavBar from "./receptionheader/ReceptionHeader";
 import EmployerCard from "./employercard/EmployerCard";
 import Service from "./serveice/Service";
-import AppointmentModal from "../../appointment/AppointmentModal";
+import AppointmentModal from "../../appointmentcomponent/AppointmentModal";
 const Reception = () => {
   return (
     <>

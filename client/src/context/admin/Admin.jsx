@@ -43,8 +43,7 @@ function Admin({ children }) {
       .then((response) => response.json())
       .then((result) => setEmployerCard(result))
       .catch((error) => {
-        setErrorMessage(error.message);
-        setShowError(true);
+        console.log(error);
       });
   }, []);
 

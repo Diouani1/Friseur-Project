@@ -96,13 +96,18 @@ const NavBar = () => {
                 Go to Reception
               </Button>
             ) : user.role === "user" ? (
-              <Button variant="outline-light">Book Appointment</Button>
+              <Button
+                variant="outline-light"
+                onClick={() => setShowAppointmentModal(true)}
+              >
+                Book Appointment
+              </Button>
             ) : user.role === "employer" ? (
               <Button
                 variant="outline-light"
                 onClick={() => setShowAppointmentModal(true)}
               >
-                Booked Appointment
+                Check Appointment
               </Button>
             ) : null}
           </div>

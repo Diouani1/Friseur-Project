@@ -9,17 +9,27 @@ import { makeAsUser } from "../controllers/admin/makeAsUser.js";
 import { deleteEmployer } from "../controllers/admin/deleteEmployer.js";
 import { getReceipt } from "../controllers/admin/getReceipt.js";
 import { getEmployerReceipt } from "../controllers/admin/getEmployerReceipt.js";
+import checkAuthAdmin from "../middlewares/checkAuthAdmin.js";
 
 const router = express.Router();
 
-router.post("/register-employer", validEmployerRegister, registerEmployer);
-router.post("/reception", reception);
+router.post(
+  "/register-employer",
+  checkAuthAdmin,
+  validEmployerRegister,
+  registerEmployer
+);
+router.post("/reception", checkAuthAdmin, reception);
 router.get("/get-all-employer", getAllEmployer);
-router.get("/get-employer-picture/:username", getEmployerPicture);
-router.post("/add-receipt", addReceipt);
-router.put("/make-as-user", makeAsUser);
-router.delete("/delete-employer", deleteEmployer);
-router.get("/get-receipts", getReceipt);
-router.get("/get-receipts/:id", getEmployerReceipt);
+router.get(
+  "/get-employer-picture/:username",
+  checkAuthAdmin,
+  getEmployerPicture
+);
+router.post("/add-receipt", checkAuthAdmin, addReceipt);
+router.put("/make-as-user", checkAuthAdmin, makeAsUser);
+router.delete("/delete-employer", checkAuthAdmin, deleteEmployer);
+router.get("/get-receipts", checkAuthAdmin, getReceipt);
+router.get("/get-receipts/:id", checkAuthAdmin, getEmployerReceipt);
 
 export default router;

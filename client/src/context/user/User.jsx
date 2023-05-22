@@ -4,7 +4,10 @@ import reducer from "./userReducer";
 
 export const UserContext = createContext();
 
-const existUser = JSON.parse(localStorage.getItem("user")) || null;
+const existUser =
+  JSON.parse(localStorage.getItem("user")) ||
+  JSON.parse(sessionStorage.getItem("user")) ||
+  null;
 
 function User({ children }) {
   const [user, setUser] = useState(existUser);

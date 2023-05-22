@@ -43,8 +43,13 @@ async function reducer(prev, action) {
       });
       const logedUser = await loginData.json();
       if (loginData.ok) {
-        // Store user data in localStorage
-        localStorage.setItem("user", JSON.stringify(logedUser));
+        // Store user data in localStorage or in seeionStorage
+        if (action.rememberMe) {
+          localStorage.setItem("user", JSON.stringify(logedUser));
+          action.setUser(logedUser);
+          return;
+        }
+        sessionStorage.setItem("user", JSON.stringify(logedUser));
         action.setUser(logedUser);
         return;
       }

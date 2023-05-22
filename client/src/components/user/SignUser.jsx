@@ -26,8 +26,6 @@ const SingUser = () => {
     setComponent,
     showError,
     setShowError,
-    showSuccess,
-    setShowSuccess,
   } = useContext(UserContext);
   const changeMode = () => {
     setModeType(modeType === "login" ? "register" : "login");
@@ -66,6 +64,7 @@ const SingUser = () => {
       setUser,
       setErrorMessage,
       setShowError,
+      rememberMe,
     });
   };
   // sending email to backend to recover the forgotten password
