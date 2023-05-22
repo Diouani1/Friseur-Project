@@ -6,3 +6,18 @@
     scrollbar-width: none;
     -ms-overflow-style: none;
   }
+  @media (max-width: 768px) {
+    body {
+      font-size: 60%; /* Reduce the font size to 60% */
+    }
+  
+    .container {
+      width: 60%; /* Reduce the container width to 60% */
+    }
+  
+    .element {
+      width: calc(60% - 20px); /* Reduce the element width to 60% minus 20 pixels */
+      height: 60vh; /* Reduce the element height to 60% of the viewport height */
+    }
+  }
+  
