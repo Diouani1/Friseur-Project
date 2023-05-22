@@ -175,6 +175,7 @@ const ReplyComment = ({ item, commentId, postId }) => {
               color: "black",
             }}
             onClick={handleLikeReply}
+            className="iconComment"
           >
             <FontAwesomeIcon
               icon={faThumbsUp}
@@ -192,6 +193,7 @@ const ReplyComment = ({ item, commentId, postId }) => {
               color: "black",
             }}
             onClick={handleDislikeReply}
+            className="iconComment"
           >
             <FontAwesomeIcon
               icon={faThumbsDown}

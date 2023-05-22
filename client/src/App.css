@@ -44,9 +44,11 @@ font-size: 2rem;
         }
     .replydiv{
   
-      background: rgba(0, 0, 0, 1);
        width: 95%;
        
       }
+    .iconComment{
+      font-size: 90%;
+    }
   }
   

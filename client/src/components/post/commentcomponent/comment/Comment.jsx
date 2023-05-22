@@ -181,6 +181,7 @@ const Comment = ({ item, postId }) => {
                   color: "black",
                 }}
                 onClick={handleLikeComment}
+                className="iconComment"
               >
                 <FontAwesomeIcon
                   icon={faThumbsUp}
@@ -198,6 +199,7 @@ const Comment = ({ item, postId }) => {
                   color: "black",
                 }}
                 onClick={handleDislikeComment}
+                className="iconComment"
               >
                 <FontAwesomeIcon
                   icon={faThumbsDown}
@@ -220,7 +222,7 @@ const Comment = ({ item, postId }) => {
                   color: "black",
                   transition: "color 0.3s ease",
                 }}
-                className="icon-hover"
+                className="icon-hover iconComment"
                 onClick={() => setShowRepley(!showReply)}
               >
                 <FontAwesomeIcon icon={faReply} /> {item.replyComments.length}
