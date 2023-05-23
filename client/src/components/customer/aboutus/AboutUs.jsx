@@ -64,7 +64,11 @@ const AboutUs = () => {
                 <Button variant="outline-success" onClick={handleWhatsappClick}>
                   <FontAwesomeIcon icon={faWhatsapp} />
                 </Button>
-                <Button variant="outline-link" onClick={handleWhatsappClick}>
+                <Button
+                  variant="outline-link"
+                  onClick={handleWhatsappClick}
+                  className="flex-shrink-0"
+                >
                   01521779988456
                 </Button>
               </div>
@@ -72,7 +76,11 @@ const AboutUs = () => {
                 <Button variant="outline-primary" onClick={handlePhoneClick}>
                   <FontAwesomeIcon icon={solidPhone} />
                 </Button>
-                <Button variant="outline-link" onClick={handlePhoneClick}>
+                <Button
+                  variant="outline-link"
+                  onClick={handlePhoneClick}
+                  className="flex-shrink-0"
+                >
                   030254866697778
                 </Button>
               </div>
@@ -80,7 +88,11 @@ const AboutUs = () => {
                 <Button variant="outline-dark" onClick={handleEmailClick}>
                   <FontAwesomeIcon icon={solidEnvelope} />
                 </Button>
-                <Button variant="outline-link" onClick={handleEmailClick}>
+                <Button
+                  variant="outline-link"
+                  onClick={handleEmailClick}
+                  className="flex-shrink-0"
+                >
                   barber-shop@gmail.com
                 </Button>
               </div>
@@ -91,7 +103,11 @@ const AboutUs = () => {
                 <Button variant="outline-dark" onClick={handleAddressClick}>
                   <FontAwesomeIcon icon={faMapMarkerAlt} />
                 </Button>
-                <Button variant="outline-link" onClick={handleAddressClick}>
+                <Button
+                  variant="outline-link"
+                  onClick={handleAddressClick}
+                  className="flex-shrink-0"
+                >
                   barber-shope str. 33, 13345 Berlin
                 </Button>
               </div>
