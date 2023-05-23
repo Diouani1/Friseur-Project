@@ -149,7 +149,7 @@ const SingUser = () => {
                   label="Remember me"
                   checked={rememberMe}
                   onChange={handleRememberMe}
-                  style={{ marginTop: "7px" }}
+                  style={{ marginTop: "5px" }}
                 />
                 <span
                   className=" link-primary"
