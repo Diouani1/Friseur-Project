@@ -163,13 +163,22 @@ const GetPost = ({ post }) => {
               <Card.Footer className="d-flex justify-content-between">
                 <div>
                   <Button variant="light" onClick={handleLike}>
-                    <FontAwesomeIcon className="iconMobile" icon={faThumbsUp} />
+                    <FontAwesomeIcon
+                      className="iconMobile"
+                      icon={faThumbsUp}
+                      style={{
+                        color: like ? "blue" : "inherit",
+                      }}
+                    />
                     {post.likes.length}
                   </Button>
                   <Button variant="light" onClick={handleDislike}>
                     <FontAwesomeIcon
                       className="iconMobile"
                       icon={faThumbsDown}
+                      style={{
+                        color: dislike ? "red" : "inherit",
+                      }}
                     />
                     {post.dislikes.length}
                   </Button>
