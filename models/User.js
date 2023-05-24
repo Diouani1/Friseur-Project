@@ -1,5 +1,6 @@
 import { compare, hash } from "bcrypt";
 import mongoose from "mongoose";
+import Post from "./Post";
 
 const { Schema, model } = mongoose;
 
@@ -85,19 +86,42 @@ userSchema.pre("save", async function () {
     console.log(error);
   }
 });
-// Add a method to the schema to compare passwords
-/*
-userSchema.methods.comparePassword = async function (candidatePassword) {
-  try {
-    const isMatch = await compare(candidatePassword, this.password);
-    return isMatch;
-  } catch (error) {
-    throw new Error(error);
-  }
-};
-*/
+userSchema.pre("remove", async function () {
+  const userId = this._id;
 
-// Add a new function to the schema to compare passwords
+  // Delete all comments
+  await Post.updateMany({}, { $pull: { "comments.author": userId } });
+
+  // Delete all reply comments
+  await Post.updateMany(
+    {},
+    { $pull: { "comments.replyComments.author": userId } }
+  );
+
+  // Delete all likes and dislikes from comments
+  await Post.updateMany(
+    {},
+    {
+      $pull: {
+        "comments.likeComment": userId,
+        "comments.dislikeComment": userId,
+        "comments.replyComments.likeReply": userId,
+        "comments.replyComments.dislikeReply": userId,
+      },
+    }
+  );
+
+  // Delete all likes and dislikes from posts
+  await Post.updateMany(
+    {},
+    {
+      $pull: {
+        likes: userId,
+        dislikes: userId,
+      },
+    }
+  );
+});
 
 userSchema.statics.login = async (loginUser) => {
   const user = await User.findOne({
