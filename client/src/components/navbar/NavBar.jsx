@@ -100,7 +100,9 @@ const NavBar = () => {
           </Navbar.Offcanvas>
           <div className="">
             {!user ? (
-              <Button variant="outline-light">Login</Button>
+              <Button variant="outline-light" onClick={() => setOnOff(true)}>
+                Login
+              </Button>
             ) : user.role === "admin" ? (
               <Button variant="outline-light" onClick={() => setShow(true)}>
                 Go to Reception
