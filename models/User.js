@@ -1,6 +1,6 @@
 import { compare, hash } from "bcrypt";
 import mongoose from "mongoose";
-import Post from "./Post";
+import Post from "./Post.js";
 
 const { Schema, model } = mongoose;
 
