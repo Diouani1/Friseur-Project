@@ -10,8 +10,10 @@ const conformedEmail = async (req, res, next) => {
     if (confirmedEmail.userId) {
       const updateUser = await User.findOneAndUpdate(
         { _id: req.query.userId },
-        { verified: true }
+        { verified: true },
+        { new: true }
       );
+      console.log(updateUser);
       await Email.findOneAndDelete({
         userId: req.query.userId,
         key: req.query.key,
