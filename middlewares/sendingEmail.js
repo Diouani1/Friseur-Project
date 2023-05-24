@@ -27,7 +27,7 @@ const sendingEmail = async (req, res, next) => {
       <p>
       
       This email '${req.body.email}', is used to register in our app, <br>
-      please visit <a style="background:  rgba(14, 199, 206, 0.644);margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;" href="http://localhost:5000/api/user/conform-email?userId=${user._id}&key=${key}">this link</a> To verify your email.
+      please visit <a style="background:  rgba(14, 199, 206, 0.644);margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;" href="https://barbershop-diouani.onrender.com/api/user/conform-email?userId=${user._id}&key=${key}">this link</a> To verify your email.
       <br>
       If you not the owner, please ignore the message
       
