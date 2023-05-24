@@ -16,7 +16,7 @@ const conformedEmail = async (req, res, next) => {
         userId: req.query.userId,
         key: req.query.key,
       });
-      res.redirect("http://localhost:5173/");
+      res.redirect("https://barbershop-diouani.onrender.com");
     }
   } catch (error) {
     next(creatErr(401, error));
