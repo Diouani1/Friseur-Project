@@ -30,7 +30,7 @@ const logoutUser = (req, res, next) => {
       res.clearCookie("connect.sid", {
         path: "/",
         domain: "barbershop-diouani.onrender.com",
-        secure: true,
+        secure: false,
         httpOnly: false,
       });
 
