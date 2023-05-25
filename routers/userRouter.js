@@ -13,7 +13,7 @@ import { updateProfilePicture } from "../controllers/user/updateProfilePicture.j
 import checkAuthToken from "../middlewares/checkAuthToken.js";
 import { addAvatar } from "../controllers/user/addAvatar.js";
 import { updateName } from "../controllers/user/updateName.js";
-import { deleteAcount } from "../controllers/user/deleteAcount.js";
+import { deleteUser } from "../controllers/user/deleteUser.js";
 const router = express.Router();
 
 const upload = multer({ dest: "uploads/" });
@@ -21,6 +21,7 @@ const upload = multer({ dest: "uploads/" });
 const fotoProfileMiddleWare = upload.fields([
   { name: "profilePicture", maxCount: 1 },
 ]);
+router.delete("/delete-acount", checkAuthToken, deleteUser);
 router.get("/conform-email", conformedEmail);
 router.get("/check-email/:email", checkEmail);
 router.get("/profile-picture", checkAuthToken, profilePicture);
@@ -37,6 +38,5 @@ router.put(
   updateProfilePicture
 );
 router.put("/delete-profile-picture", checkAuthToken, addAvatar);
-router.delete("/delete-acount", checkAuthToken, deleteAcount);
 
 export default router;

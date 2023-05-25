@@ -87,32 +87,39 @@ userSchema.pre("save", async function () {
   }
 });
 
-userSchema.pre("findOneAndDelete", async function () {
-  const userId = this._id;
-
+userSchema.pre("deleteOne", async function () {
+  const userId = this.getQuery()._id;
+  console.log("userId :", userId);
   // Delete all comments by the user
   await Post.updateMany({}, { $pull: { comments: { author: userId } } });
 
   // Delete all reply comments by the user
   await Post.updateMany(
-    {},
-    { $pull: { "comments.replyComments": { author: userId } } }
+    { "comments.replyComments.author": userId },
+    { $pull: { "comments.$.replyComments": { author: userId } } }
   );
 
-  // Delete all likes and dislikes from comments by the user
+  // // Delete all likes and dislikes from comments by the user
   await Post.updateMany(
-    {},
+    {
+      $or: [
+        { "comments.likeComment": userId },
+        { "comments.dislikeComment": userId },
+        { "comments.replyComments.likeReply": userId },
+        { "comments.replyComments.dislikeReply": userId },
+      ],
+    },
     {
       $pull: {
-        "comments.likeComment": userId,
-        "comments.dislikeComment": userId,
-        "comments.replyComments.likeReply": userId,
-        "comments.replyComments.dislikeReply": userId,
+        "comments.$[].likeComment": userId,
+        "comments.$[].dislikeComment": userId,
+        "comments.$[].replyComments.$[].likeReply": userId,
+        "comments.$[].replyComments.$[].dislikeReply": userId,
       },
     }
   );
 
-  // Delete all likes and dislikes from posts by the user
+  // // Delete all likes and dislikes from posts by the user
   await Post.updateMany(
     {},
     {

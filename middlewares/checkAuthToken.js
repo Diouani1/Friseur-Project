@@ -18,6 +18,7 @@ const checkAuthToken = (req, res, next) => {
       req.userId = object.id;
 
       next();
+      return;
     });
   } catch (error) {
     next(creatErr(500, error));
