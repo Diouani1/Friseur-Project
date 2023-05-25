@@ -210,7 +210,45 @@ async function reducer(prev, action) {
       }
     } catch (error) {
       // Display error message
-      console.log(error);
+      action.setErrorMessage(error.message);
+      action.setShowError(true);
+    }
+  } else if (action.type === "logout") {
+    try {
+      const response = await fetch(`/api/user/logout`);
+      const result = await response.json();
+      if (response.ok) {
+        action.setOnOff(false);
+        action.setUser(null);
+        localStorage.removeItem("user");
+        sessionStorage.removeItem("user");
+        return;
+      }
+      throw new Error(result.message);
+    } catch (error) {
+      action.setErrorMessage(error.message);
+      action.setShowError(true);
+    }
+    // deleting user acount and token and remove user from localstorage and sessionstorage
+  } else if (action.type === "delete-acount") {
+    try {
+      const response = await fetch(`/api/user/delete-acount`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const result = await response.json();
+      if (response.ok) {
+        action.setShowDeleteAcountModal(false);
+        action.setOnOff(false);
+        action.setUser(null);
+        localStorage.removeItem("user");
+        sessionStorage.removeItem("user");
+        return;
+      }
+      throw new Error(result.message);
+    } catch (error) {
       action.setErrorMessage(error.message);
       action.setShowError(true);
     }

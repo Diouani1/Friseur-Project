@@ -22,10 +22,11 @@ app.use(
   session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: {
-      maxAge: 30 * 24 * 60 * 60 * 1000, // Expires in one month
+      maxAge: 2 * 30 * 24 * 60 * 60 * 1000, // Expires in one month
     },
+    unset: "destroy",
   })
 );
 

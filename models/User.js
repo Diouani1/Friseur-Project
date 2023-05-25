@@ -86,19 +86,20 @@ userSchema.pre("save", async function () {
     console.log(error);
   }
 });
-userSchema.pre("remove", async function () {
+
+userSchema.pre("findOneAndDelete", async function () {
   const userId = this._id;
 
-  // Delete all comments
-  await Post.updateMany({}, { $pull: { "comments.author": userId } });
+  // Delete all comments by the user
+  await Post.updateMany({}, { $pull: { comments: { author: userId } } });
 
-  // Delete all reply comments
+  // Delete all reply comments by the user
   await Post.updateMany(
     {},
-    { $pull: { "comments.replyComments.author": userId } }
+    { $pull: { "comments.replyComments": { author: userId } } }
   );
 
-  // Delete all likes and dislikes from comments
+  // Delete all likes and dislikes from comments by the user
   await Post.updateMany(
     {},
     {
@@ -111,7 +112,7 @@ userSchema.pre("remove", async function () {
     }
   );
 
-  // Delete all likes and dislikes from posts
+  // Delete all likes and dislikes from posts by the user
   await Post.updateMany(
     {},
     {

@@ -10,14 +10,34 @@ const loginUser = async (req, res, next) => {
     const token = jwt.sign(
       { id: user._id, role: user.role },
       process.env.SECRET,
-      { expiresIn: "30d" }
+      { expiresIn: "60d" }
     );
-    res.cookie("token", token);
-    // req.session.token = token;
+    req.session.token = token;
 
     res.send(user);
   } catch (error) {
     next(creatErr(404, error));
   }
 };
-export { loginUser };
+
+const logoutUser = (req, res, next) => {
+  try {
+    req.session.destroy((err) => {
+      if (err) {
+        next(creatErr(501, err));
+      }
+      // Clear the session cookie
+      res.clearCookie("connect.sid", {
+        path: "/",
+        domain: "localhost",
+        secure: true,
+        httpOnly: true,
+      });
+
+      res.send({ ok: true });
+    });
+  } catch (error) {
+    next(creatErr(500, error));
+  }
+};
+export { loginUser, logoutUser };

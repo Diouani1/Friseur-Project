@@ -7,15 +7,21 @@ const DeleteAccount = () => {
     showDeleteAcountModal,
     setShowDeleteAcountModal,
     setErrorMessage,
-    showError,
+    setOnOff,
     userDispatch,
     setShowError,
+    setUser,
   } = useContext(UserContext);
 
   const handleDeleteAccount = () => {
-    // Perform the actual account deletion logic here
-    // ...
-    setShowModal(false); // Close the modal after successful deletion
+    userDispatch({
+      type: "delete-acount",
+      setShowDeleteAcountModal,
+      setErrorMessage,
+      setOnOff,
+      setUser,
+      setShowError,
+    });
   };
 
   return (

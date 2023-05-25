@@ -18,6 +18,9 @@ const NavBar = () => {
     setOnOff,
     navigate,
     setShowAppointmentModal,
+    userDispatch,
+    setErrorMessage,
+    setShowError,
   } = useContext(UserContext);
   const { show, setShow } = useContext(AdminContext);
   function toggleOffOn() {
@@ -32,10 +35,13 @@ const NavBar = () => {
   };
   // handle logout
   const handleLogout = () => {
-    localStorage.removeItem("user");
-    sessionStorage.removeItem("user");
-
-    setUser(null);
+    userDispatch({
+      type: "logout",
+      setOnOff,
+      setUser,
+      setErrorMessage,
+      setShowError,
+    });
   };
 
   return (
