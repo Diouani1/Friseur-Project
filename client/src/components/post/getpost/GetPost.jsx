@@ -202,7 +202,7 @@ const GetPost = ({ post }) => {
             <DeletePostModal
               showDeleteModal={showDeleteModal}
               setShowDeleteModal={setShowDeleteModal}
-              postId={post._id}
+              post={post}
             />
             <SharePostModale
               showShareModal={showShareModal}

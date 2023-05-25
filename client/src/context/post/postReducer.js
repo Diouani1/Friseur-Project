@@ -211,9 +211,17 @@ async function reducer(prev, action) {
   //  delete post
   if (action.type === "delete-post") {
     try {
+      let picturePath = "";
+      if (action.post.postPicture.fieldname === "postPicture") {
+        picturePath = action.post.postPicture.path;
+      }
+
       const response = await fetch(`/api/post/delete-post`, {
         method: "DELETE",
-        body: JSON.stringify({ postId: action.postId }),
+        body: JSON.stringify({
+          postId: action.post._id,
+          postPicturePath: picturePath,
+        }),
         headers: {
           "Content-type": "application/json",
         },

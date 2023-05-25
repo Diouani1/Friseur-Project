@@ -1,8 +1,8 @@
-import { useContext, useEffect, useState } from "react";
-import { Card, Button, Dropdown, Modal } from "react-bootstrap";
+import { useContext } from "react";
+import { Button, Modal } from "react-bootstrap";
 import { PostContext } from "../../../context/post/Post";
 
-const DeletePostModal = ({ showDeleteModal, setShowDeleteModal, postId }) => {
+const DeletePostModal = ({ showDeleteModal, setShowDeleteModal, post }) => {
   const {
     postDispatch,
     setUpdate,
@@ -14,7 +14,7 @@ const DeletePostModal = ({ showDeleteModal, setShowDeleteModal, postId }) => {
     postDispatch({
       type: "delete-post",
       setShowDeleteModal,
-      postId,
+      post,
       setUpdate,
       update,
       setShowGetPostError,
