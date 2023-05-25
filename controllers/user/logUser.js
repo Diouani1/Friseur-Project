@@ -27,12 +27,7 @@ const logoutUser = (req, res, next) => {
         next(creatErr(501, err));
       }
       // Clear the session cookie
-      res.clearCookie("connect.sid", {
-        path: "/",
-        domain: "barbershop-diouani.onrender.com",
-        secure: false,
-        httpOnly: false,
-      });
+      res.clearCookie("connect.sid");
 
       res.send({ ok: true });
     });

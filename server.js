@@ -27,6 +27,8 @@ app.use(
       maxAge: 2 * 30 * 24 * 60 * 60 * 1000, // Expires in one month
     },
     unset: "destroy",
+    serialize: (sessionData) => JSON.stringify(sessionData),
+    deserialize: (serializedData) => JSON.parse(serializedData),
   })
 );
 
