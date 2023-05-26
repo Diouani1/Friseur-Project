@@ -5,12 +5,19 @@ import router from "./routes.js";
 import cors from "cors";
 import cookiesParser from "cookie-parser";
 import session from "express-session";
+import MongoStore from "connect-mongo";
 import logger from "morgan";
 import path from "path";
 
 dotenv.config();
 
 connect();
+
+const store = MongoStore.create({
+  mongoUrl: `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}${process.env.DB_HOST}/${process.env.DB_NAME}`,
+  collectionName: "sessions",
+});
+
 const app = express();
 app.use(express.static(path.resolve("./", "client/dist")));
 
@@ -23,12 +30,11 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
+    store: store,
     cookie: {
       maxAge: 2 * 30 * 24 * 60 * 60 * 1000, // Expires in one month
     },
     unset: "destroy",
-    serialize: (sessionData) => JSON.stringify(sessionData),
-    deserialize: (serializedData) => JSON.parse(serializedData),
   })
 );
 
