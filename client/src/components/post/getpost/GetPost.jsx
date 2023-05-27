@@ -1,3 +1,4 @@
+import "./GetPost.css";
 import { useContext, useEffect, useState } from "react";
 import { Card, Button, Dropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -148,9 +149,18 @@ const GetPost = ({ post }) => {
               {post.postPicture ? (
                 <Card.Img
                   variant="top"
-                  src={`/api/post/get-post-picture/${post._id}`}
+                  src={`/api/post/get-post-media/${post._id}`}
                 />
+              ) : post.postVideo ? (
+                <video width="100%" controls className="videoStyle">
+                  <source
+                    src={`/api/post/get-post-media/${post._id}`}
+                    type="video/mp4"
+                  />
+                  Your browser does not support the video tag.
+                </video>
               ) : null}
+
               {showComment ? (
                 <CommentComponent comments={post.comments} postId={post._id} />
               ) : post.title || post.content ? (

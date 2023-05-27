@@ -1,17 +1,21 @@
 async function reducer(prev, action) {
-  // add new post
+  // // add new post
+
   if (action.type === "add-post") {
     try {
-      const postPicture = new FormData();
-      postPicture.append("title", action.title);
-      postPicture.append("content", action.content);
+      const formData = new FormData();
+      formData.append("title", action.title);
+      formData.append("content", action.content);
       if (action.selectedFile) {
-        postPicture.append("postPicture", action.selectedFile);
+        formData.append("postPicture", action.selectedFile);
+      }
+      if (action.selectedVideo) {
+        formData.append("postVideo", action.selectedVideo);
       }
 
       const response = await fetch(`/api/post/add-post`, {
         method: "POST",
-        body: postPicture,
+        body: formData,
       });
       const result = await response.json();
       if (response.ok) {
@@ -27,6 +31,7 @@ async function reducer(prev, action) {
       action.setShowError(true);
     }
   }
+
   //  updating post
   if (action.type === "update-post") {
     try {
@@ -209,37 +214,48 @@ async function reducer(prev, action) {
     }
   }
   //  delete post
+
   if (action.type === "delete-post") {
     try {
-      let picturePath = "";
-      if (action.post.postPicture.fieldname === "postPicture") {
-        picturePath = action.post.postPicture.path;
+      let mediaPath = "";
+      if (
+        action.post.postPicture &&
+        action.post.postPicture.fieldname === "postPicture"
+      ) {
+        mediaPath = action.post.postPicture.path;
+      } else if (
+        action.post.postVideo &&
+        action.post.postVideo.fieldname === "postVideo"
+      ) {
+        mediaPath = action.post.postVideo.path;
       }
 
       const response = await fetch(`/api/post/delete-post`, {
         method: "DELETE",
         body: JSON.stringify({
           postId: action.post._id,
-          postPicturePath: picturePath,
+          mediaPath: mediaPath,
         }),
         headers: {
           "Content-type": "application/json",
         },
       });
+
       const result = await response.json();
       if (response.ok) {
         action.setUpdate(!action.update);
         action.setShowDeleteModal(false);
         action.setShowGetPostError(false);
-
         return;
       }
+
       throw new Error(result.message);
     } catch (error) {
       action.setGetPostError(error.message);
       action.setShowGetPostError(true);
     }
   }
+
   //  delete comment
   if (action.type === "delete-comment") {
     try {

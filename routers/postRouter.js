@@ -4,7 +4,6 @@ import multer from "multer";
 import { addPost } from "../controllers/post/addPost.js";
 import checkAuthPost from "../middlewares/checkAuthPost.js";
 import { getAllPost } from "../controllers/post/getAllPost.js";
-import { getPostPicture } from "../controllers/post/getPostPicture.js";
 import checkAuthToken from "../middlewares/checkAuthToken.js";
 import { updateLikes } from "../controllers/post/updateLike.js";
 import { addComment } from "../controllers/post/addComment.js";
@@ -17,18 +16,34 @@ import { deleteReplyComment } from "../controllers/post/deleteReplyComment.js";
 import { deleteComment } from "../controllers/post/deleteComment.js";
 import { updatePost } from "../controllers/post/updatePost.js";
 import { getSharePost } from "../controllers/post/getSharePost.js";
+import { getPostMedia } from "../controllers/post/getPostMedia.js";
 
 const router = express.Router();
-const upload = multer({ dest: "uploadspost/" });
 
-const postPictureMiddleWare = upload.fields([
+// Configure multer storage for both images and videos
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploadspost/");
+  },
+  filename: function (req, file, cb) {
+    // Generate a unique filename
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, uniqueSuffix + "-" + file.originalname);
+  },
+});
+
+// Define multer upload instance
+const upload = multer({ storage });
+
+const postMediaMiddleware = upload.fields([
   { name: "postPicture", maxCount: 5 },
+  { name: "postVideo", maxCount: 1 },
 ]);
 
-router.post("/add-post", checkAuthPost, postPictureMiddleWare, addPost);
+router.post("/add-post", checkAuthPost, postMediaMiddleware, addPost);
 router.put("/update-post", checkAuthPost, updatePost);
 router.get("/get-all-post", getAllPost);
-router.get("/get-post-picture/:id", getPostPicture);
+router.get("/get-post-media/:id", getPostMedia);
 router.get("/profile-picture/:username", authorPicture);
 router.get("/share-post", getSharePost);
 router.put("/update-like", checkAuthToken, updateLikes);

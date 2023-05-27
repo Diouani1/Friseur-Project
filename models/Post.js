@@ -13,6 +13,17 @@ const pictureSchema = new Schema(
   },
   { _id: false }
 );
+const videoSchema = new Schema(
+  {
+    fieldname: { type: String, required: true },
+    originalname: { type: String, required: true },
+    mimetype: { type: String, required: true },
+    filename: { type: String, required: true },
+    path: { type: String, required: true },
+    size: { type: Number, required: true },
+  },
+  { _id: false }
+);
 const replyCommentSchema = new Schema(
   {
     author: { type: Schema.Types.ObjectId, ref: "user" },
@@ -42,6 +53,7 @@ const PostSchema = new Schema(
     dislikes: [{ type: Schema.Types.ObjectId, ref: "user" }],
     comments: [{ type: commentSchema }],
     postPicture: { type: pictureSchema },
+    postVideo: { type: videoSchema },
     createdBy: { type: Schema.Types.ObjectId, ref: "User", required: true },
   },
   {

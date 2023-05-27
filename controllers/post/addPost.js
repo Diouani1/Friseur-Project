@@ -1,19 +1,28 @@
-import creatErr from "http-errors";
+import createError from "http-errors";
 import Post from "../../models/Post.js";
 
 const addPost = async (req, res, next) => {
   const postPicture = req.files["postPicture"];
+  const postVideo = req.files["postVideo"];
   req.body.createdBy = req.createdId;
   let newPost;
   try {
-    if (!postPicture) {
+    if (!postPicture && !postVideo) {
       newPost = await Post.create(req.body);
-    } else {
+    } else if (postPicture && !postVideo) {
       newPost = await Post.create({ ...req.body, postPicture: postPicture[0] });
+    } else if (!postPicture && postVideo) {
+      newPost = await Post.create({ ...req.body, postVideo: postVideo[0] });
+    } else {
+      newPost = await Post.create({
+        ...req.body,
+        postPicture: postPicture[0],
+        postVideo: postVideo[0],
+      });
     }
     res.send(newPost);
   } catch (error) {
-    next(creatErr(401, error));
+    next(createError(401, error));
   }
 };
 
