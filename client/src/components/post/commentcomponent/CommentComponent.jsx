@@ -23,7 +23,7 @@ const CommentComponent = ({ comments, postId }) => {
     setGetPostError,
     posts,
   } = useContext(PostContext);
-  const { user } = useContext(UserContext);
+  const { user, setOnOff } = useContext(UserContext);
   const [newComment, setNewComment] = useState("");
 
   const handleSubmit = (e) => {

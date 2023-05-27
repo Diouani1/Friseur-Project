@@ -20,7 +20,7 @@ const ReplyComment = ({ item, commentId, postId }) => {
     setShowGetPostError,
     setGetPostError,
   } = useContext(PostContext);
-  const { user } = useContext(UserContext);
+  const { user, setOnOff } = useContext(UserContext);
   const [like, setLike] = useState(false);
   const [dislike, setDislike] = useState(false);
   const [showOptions, setShowOptions] = useState(false);

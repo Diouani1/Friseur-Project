@@ -29,7 +29,7 @@ const Comment = ({ item, postId }) => {
     setShowGetPostError,
     setGetPostError,
   } = useContext(PostContext);
-  const { user } = useContext(UserContext);
+  const { user, setOnOff } = useContext(UserContext);
 
   const [like, setLike] = useState(false);
   const [dislike, setDislike] = useState(false);
