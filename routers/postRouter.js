@@ -20,20 +20,11 @@ import { getPostMedia } from "../controllers/post/getPostMedia.js";
 
 const router = express.Router();
 
-// Configure multer storage for both images and videos
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploadspost/");
-  },
-  filename: function (req, file, cb) {
-    // Generate a unique filename
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, uniqueSuffix + "-" + file.originalname);
-  },
-});
-
 // Define multer upload instance
-const upload = multer({ storage });
+const upload = multer({
+  storage: multer.diskStorage({ destination: "uploadspost/" }),
+  limits: { fileSize: 100 * 1024 * 1024 }, // Set a limit of 100MB
+});
 
 const postMediaMiddleware = upload.fields([
   { name: "postPicture", maxCount: 5 },
