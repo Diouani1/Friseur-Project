@@ -28,6 +28,10 @@ const CommentComponent = ({ comments, postId }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!user) {
+      setOnOff(true);
+      return;
+    }
     postDispatch({
       type: "add-comment",
       update,

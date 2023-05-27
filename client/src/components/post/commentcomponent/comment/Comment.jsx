@@ -38,6 +38,10 @@ const Comment = ({ item, postId }) => {
 
   // Update the likes count in the database
   const handleLikeComment = () => {
+    if (!user) {
+      setOnOff(true);
+      return;
+    }
     postDispatch({
       type: "update-like-comment",
       like: !like,
@@ -52,6 +56,10 @@ const Comment = ({ item, postId }) => {
   };
   // Update the dislikes count in the database
   const handleDislikeComment = () => {
+    if (!user) {
+      setOnOff(true);
+      return;
+    }
     postDispatch({
       type: "update-like-comment",
       like: false,

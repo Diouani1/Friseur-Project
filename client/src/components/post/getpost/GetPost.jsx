@@ -71,10 +71,6 @@ const GetPost = ({ post }) => {
   };
   // show the comment
   const handleComment = () => {
-    if (!user) {
-      setOnOff(true);
-      return;
-    }
     setShowComment(!showComment);
   };
   // Show the options dropdown

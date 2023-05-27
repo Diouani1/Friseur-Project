@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationArrow } from "@fortawesome/free-solid-svg-icons";
 import { PostContext } from "../../../../context/post/Post";
 import ReplyComment from "./replycomment/ReplyComment";
+import { UserContext } from "../../../../context/user/User";
 const ReplyComponent = ({ replyComments, commentId, postId }) => {
   const {
     postDispatch,
@@ -20,11 +21,16 @@ const ReplyComponent = ({ replyComments, commentId, postId }) => {
     setGetPostError,
     posts,
   } = useContext(PostContext);
+  const { user } = useContext(UserContext);
 
   const [replyComment, setReplyComment] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!user) {
+      setOnOff(true);
+      return;
+    }
     postDispatch({
       type: "add-reply-comment",
       update,
