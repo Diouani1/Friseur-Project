@@ -21,7 +21,7 @@ const ReplyComponent = ({ replyComments, commentId, postId }) => {
     setGetPostError,
     posts,
   } = useContext(PostContext);
-  const { user } = useContext(UserContext);
+  const { user, setOnOff } = useContext(UserContext);
 
   const [replyComment, setReplyComment] = useState("");
 
