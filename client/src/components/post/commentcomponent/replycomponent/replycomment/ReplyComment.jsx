@@ -117,7 +117,7 @@ const ReplyComment = ({ item, commentId, postId }) => {
               {getTimeDifference(item.createdAt)}
             </span>
           </div>
-          {user.role === "admin" || item.author._id === user._id ? (
+          {user && (user.role === "admin" || item.author._id === user._id) ? (
             <div>
               {showOptions ? (
                 <Dropdown
