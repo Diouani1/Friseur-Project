@@ -23,12 +23,14 @@ async function reducer(prev, action) {
         action.setUpdate(!action.update);
         action.setTitle("");
         action.setContent("");
+        action.setLoading(false);
         return;
       }
       throw new Error(result.message);
     } catch (error) {
       action.setErrorMessage(error.message);
       action.setShowError(true);
+      action.setLoading(false);
     }
   }
 
