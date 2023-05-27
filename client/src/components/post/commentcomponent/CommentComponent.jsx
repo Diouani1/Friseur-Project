@@ -73,12 +73,12 @@ const CommentComponent = ({ comments, postId }) => {
               alignItems: "center",
             }}
           >
-            {user && (
+            {user ? (
               <Image
                 className="imgMobile"
                 src={`/api/post/profile-picture/${user.userName}`}
               />
-            )}
+            ) : null}
             <Form onSubmit={handleSubmit}>
               <Form.Group
                 controlId="commentForm"
