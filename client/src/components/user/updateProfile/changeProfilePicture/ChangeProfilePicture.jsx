@@ -72,9 +72,13 @@ const ChangeProfilePicture = () => {
               <Form.Label>
                 <Image
                   src={picture}
-                  roundedCircle
                   fluid
-                  style={{ width: "200px", cursor: "pointer" }}
+                  style={{
+                    width: "200px",
+                    cursor: "pointer",
+                    height: "200px",
+                    borderRadius: "50%",
+                  }}
                 />
               </Form.Label>
               <Form.Control

@@ -30,12 +30,8 @@ const UserProfile = () => {
     imageContainer: {
       display: "flex",
       justifyContent: "center",
+      alignItems: "center",
       marginBottom: "1rem",
-    },
-    image: {
-      width: "200px", // Adjust the width as per your requirement
-      height: "auto",
-      maxWidth: "100%",
     },
   };
   function getRandomColor() {
@@ -50,13 +46,7 @@ const UserProfile = () => {
       <Row>
         <Col>
           <div style={styles.imageContainer}>
-            <Image
-              src={profilePictureUrl}
-              roundedCircle
-              fluid
-              // style={styles.image}
-              className="profileImg"
-            />
+            <Image src={profilePictureUrl} fluid className="profileImg" />
           </div>
         </Col>
         <Col md={8}>
