@@ -1,20 +1,23 @@
 import creatErr from "http-errors";
 import Post from "../../models/Post.js";
-import fs from "fs/promises";
-import path from "path";
+import { Storage } from "@google-cloud/storage";
+
+const storage = new Storage({
+  projectId: "friseur-jalouka",
+  keyFilename: "./google_credentials.json",
+});
+
+const bucketName = "jalouka-bucket";
+const bucket = storage.bucket(bucketName);
 
 const deletePost = async (req, res, next) => {
-  const { postId, mediaPath } = req.body;
-
-  if (mediaPath && typeof mediaPath === "string") {
-    try {
-      await fs.unlink(path.resolve("./", mediaPath));
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
+  const { postId, mediaName } = req.body;
   try {
+    if (mediaName) {
+      const file = bucket.file(mediaName);
+      await file.delete();
+    }
+
     const deletedPost = await Post.findByIdAndDelete(postId);
     if (!deletedPost) return next(creatErr(401, "Post not found"));
     res.send({ message: "Post deleted successfully" });

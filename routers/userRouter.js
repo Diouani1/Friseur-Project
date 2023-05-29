@@ -2,6 +2,7 @@ import express from "express";
 import multer from "multer";
 import validRegisterInfo from "../middlewares/validRegister.js";
 import sendingEmail from "../middlewares/sendingEmail.js";
+import uploadProfileToStorage from "../middlewares/uploadProfileToStorage.js";
 import { loginUser, logoutUser } from "../controllers/user/logUser.js";
 import { conformedEmail } from "../controllers/user/conferUserEmail.js";
 import { updatePassword } from "../controllers/user/updatePassword.js";
@@ -16,7 +17,7 @@ import { updateName } from "../controllers/user/updateName.js";
 import { deleteUser } from "../controllers/user/deleteUser.js";
 const router = express.Router();
 
-const upload = multer({ dest: "uploads/" });
+const upload = multer();
 
 const fotoProfileMiddleWare = upload.fields([
   { name: "profilePicture", maxCount: 1 },
@@ -35,6 +36,7 @@ router.put(
   "/update-profile-picture",
   checkAuthToken,
   fotoProfileMiddleWare,
+  uploadProfileToStorage,
   updateProfilePicture
 );
 router.put("/delete-profile-picture", checkAuthToken, addAvatar);

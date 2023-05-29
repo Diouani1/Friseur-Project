@@ -1,10 +1,10 @@
 import express from "express";
 import multer from "multer";
-
-import { addPost } from "../controllers/post/addPost.js";
+import uploadPostToStorage from "../middlewares/uploadPostToStorage.js";
 import checkAuthPost from "../middlewares/checkAuthPost.js";
-import { getAllPost } from "../controllers/post/getAllPost.js";
 import checkAuthToken from "../middlewares/checkAuthToken.js";
+import { addPost } from "../controllers/post/addPost.js";
+import { getAllPost } from "../controllers/post/getAllPost.js";
 import { updateLikes } from "../controllers/post/updateLike.js";
 import { addComment } from "../controllers/post/addComment.js";
 import { authorPicture } from "../controllers/post/authorPicture.js";
@@ -19,19 +19,20 @@ import { getSharePost } from "../controllers/post/getSharePost.js";
 import { getPostMedia } from "../controllers/post/getPostMedia.js";
 
 const router = express.Router();
-
-// Define multer upload instance
-const upload = multer({
-  storage: multer.diskStorage({ destination: "uploadspost/" }),
-  limits: { fileSize: 100 * 1024 * 1024 }, // Set a limit of 100MB
-});
+const upload = multer();
 
 const postMediaMiddleware = upload.fields([
   { name: "postPicture", maxCount: 5 },
   { name: "postVideo", maxCount: 1 },
 ]);
 
-router.post("/add-post", checkAuthPost, postMediaMiddleware, addPost);
+router.post(
+  "/add-post",
+  checkAuthPost,
+  postMediaMiddleware,
+  uploadPostToStorage,
+  addPost
+);
 router.put("/update-post", checkAuthPost, updatePost);
 router.get("/get-all-post", getAllPost);
 router.get("/get-post-media/:id", getPostMedia);

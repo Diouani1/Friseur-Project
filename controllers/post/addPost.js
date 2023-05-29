@@ -10,9 +10,15 @@ const addPost = async (req, res, next) => {
     if (!postPicture && !postVideo) {
       newPost = await Post.create(req.body);
     } else if (postPicture && !postVideo) {
-      newPost = await Post.create({ ...req.body, postPicture: postPicture[0] });
+      newPost = await Post.create({
+        ...req.body,
+        postPicture: req.uploadedFileData,
+      });
     } else if (!postPicture && postVideo) {
-      newPost = await Post.create({ ...req.body, postVideo: postVideo[0] });
+      newPost = await Post.create({
+        ...req.body,
+        postVideo: req.uploadedFileData,
+      });
     } else {
       newPost = await Post.create({
         ...req.body,

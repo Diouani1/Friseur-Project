@@ -219,24 +219,24 @@ async function reducer(prev, action) {
 
   if (action.type === "delete-post") {
     try {
-      let mediaPath = "";
+      let mediaName = "";
       if (
         action.post.postPicture &&
         action.post.postPicture.fieldname === "postPicture"
       ) {
-        mediaPath = action.post.postPicture.path;
+        mediaName = action.post.postPicture.filename;
       } else if (
         action.post.postVideo &&
         action.post.postVideo.fieldname === "postVideo"
       ) {
-        mediaPath = action.post.postVideo.path;
+        mediaName = action.post.postVideo.filename;
       }
 
       const response = await fetch(`/api/post/delete-post`, {
         method: "DELETE",
         body: JSON.stringify({
           postId: action.post._id,
-          mediaPath: mediaPath,
+          mediaName: mediaName,
         }),
         headers: {
           "Content-type": "application/json",

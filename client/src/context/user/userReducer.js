@@ -163,7 +163,7 @@ async function reducer(prev, action) {
       if (action.user.imgProfile.fieldname === "profilePicture") {
         formProfileUser.append(
           "oldProfilePicture",
-          action.user.imgProfile.path
+          action.user.imgProfile.filename
         );
       }
       const response = await fetch(`/api/user/update-profile-picture`, {
@@ -190,7 +190,7 @@ async function reducer(prev, action) {
       let picture = "";
 
       if (action.user.imgProfile.fieldname === "profilePicture") {
-        picture = action.user.imgProfile.path;
+        picture = action.user.imgProfile.filename;
       }
       const response = await fetch(`/api/user/delete-profile-picture`, {
         method: "PUT",

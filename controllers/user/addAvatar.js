@@ -1,19 +1,23 @@
 import User from "../../models/User.js";
 import creatErr from "http-errors";
-import fs from "fs/promises";
-import path from "path";
+import { Storage } from "@google-cloud/storage";
+
+const storage = new Storage({
+  projectId: "friseur-jalouka",
+  keyFilename: "./google_credentials.json",
+});
+
+const bucketName = "profile-jalouka-bucket";
+const bucket = storage.bucket(bucketName);
 
 const addAvatar = async (req, res, next) => {
   const oldProfilePicture = req.body.oldProfilePicture;
 
-  if (oldProfilePicture) {
-    try {
-      await fs.unlink(path.resolve("./", oldProfilePicture));
-    } catch (err) {
-      console.log(err);
-    }
-  }
   try {
+    if (oldProfilePicture) {
+      const file = bucket.file(oldProfilePicture);
+      await file.delete();
+    }
     const updateUser = await User.findOneAndUpdate(
       { _id: req.userId },
       {
@@ -21,8 +25,8 @@ const addAvatar = async (req, res, next) => {
           fieldname: "avatar",
           originalname: "avatar",
           mimetype: "image/jng",
-          filename: "default-avatar.jpg",
-          path: "uploads/avatar.jpg",
+          filename: "avatar.jpg",
+          path: "gs://profile-jalouka-bucket/avatar.jpg",
           size: 0,
         },
       },

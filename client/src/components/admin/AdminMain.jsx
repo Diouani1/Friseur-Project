@@ -1,5 +1,4 @@
-import { useContext, useEffect, useState } from "react";
-import "./adminmain.css";
+import { useContext, useEffect } from "react";
 import AdminNav from "./adminnav/AdminNav";
 import AddEmployer from "./addemployer/AddEmployer";
 import { UserContext } from "../../context/user/User";

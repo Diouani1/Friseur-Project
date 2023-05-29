@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { Container, Image, Button, Modal, Form } from "react-bootstrap";
 import { UserContext } from "../../../../context/user/User";
-import avatar from "../../../../assets/avatar.png";
+import avatar from "../../../../assets/avatar.jpg";
 import AlertWarned from "../../../alert/AlertWarned";
 const ChangeProfilePicture = () => {
   const {
