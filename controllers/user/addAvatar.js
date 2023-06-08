@@ -3,11 +3,11 @@ import creatErr from "http-errors";
 import { Storage } from "@google-cloud/storage";
 
 const storage = new Storage({
-  projectId: "friseur-jalouka",
+  projectId: process.env.PROJECT_ID,
   keyFilename: "./google_credentials.json",
 });
 
-const bucketName = "profile-jalouka-bucket";
+const bucketName = process.env.BUCKET_NAME_PROFILE;
 const bucket = storage.bucket(bucketName);
 
 const addAvatar = async (req, res, next) => {
@@ -26,7 +26,6 @@ const addAvatar = async (req, res, next) => {
           originalname: "avatar",
           mimetype: "image/jng",
           filename: "avatar.jpg",
-          path: "gs://profile-jalouka-bucket/avatar.jpg",
           size: 0,
         },
       },

@@ -2,11 +2,12 @@ import { Storage } from "@google-cloud/storage";
 import createError from "http-errors";
 
 const storage = new Storage({
-  projectId: "friseur-jalouka",
+  projectId: process.env.PROJECT_ID,
+
   keyFilename: "./google_credentials.json",
 });
 
-const bucketName = "jalouka-bucket";
+const bucketName = process.env.BUCKET_NAME;
 const bucket = storage.bucket(bucketName);
 
 const uploadPostToStorage = async (req, res, next) => {

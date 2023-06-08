@@ -3,11 +3,11 @@ import Post from "../../models/Post.js";
 import { Storage } from "@google-cloud/storage";
 
 const storage = new Storage({
-  projectId: "friseur-jalouka",
+  projectId: process.env.PROJECT_ID,
   keyFilename: "./google_credentials.json",
 });
 
-const bucketName = "jalouka-bucket";
+const bucketName = process.env.BUCKET_NAME;
 const bucket = storage.bucket(bucketName);
 
 const getPostMedia = async (req, res, next) => {

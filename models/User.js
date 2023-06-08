@@ -10,7 +10,7 @@ const fotoSchema = new Schema(
     originalname: { type: String, required: true },
     mimetype: { type: String, required: true },
     filename: { type: String, required: true },
-    path: { type: String, required: true },
+    path: { type: String },
     size: { type: Number, required: true },
   },
   { _id: false }
@@ -125,6 +125,7 @@ userSchema.pre("deleteOne", async function () {
     {
       $pull: {
         likes: userId,
+        path: "gs://profile-jalouka-bucket/avatar.jpg",
         dislikes: userId,
       },
     }
