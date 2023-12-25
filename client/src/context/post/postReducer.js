@@ -224,12 +224,12 @@ async function reducer(prev, action) {
         action.post.postPicture &&
         action.post.postPicture.fieldname === "postPicture"
       ) {
-        mediaName = action.post.postPicture.filename;
+        mediaName = action.post.postPicture.path;
       } else if (
         action.post.postVideo &&
         action.post.postVideo.fieldname === "postVideo"
       ) {
-        mediaName = action.post.postVideo.filename;
+        mediaName = action.post.postVideo.path;
       }
 
       const response = await fetch(`/api/post/delete-post`, {

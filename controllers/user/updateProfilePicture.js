@@ -1,25 +1,20 @@
 import User from "../../models/User.js";
 import creatErr from "http-errors";
-import { Storage } from "@google-cloud/storage";
-
-const storage = new Storage({
-  projectId: process.env.PROJECT_ID,
-  keyFilename: "./google_credentials.json",
-});
-
-const bucketName = process.env.BUCKET_NAME_PROFILE;
-const bucket = storage.bucket(bucketName);
+import { deleteImageFromFirebase } from "../../firebase/index.js";
 
 const updateProfilePicture = async (req, res, next) => {
-  if (!req.files["profilePicture"]) {
+  if (!req.file) {
     next(creatErr(401, "please select the file"));
     return;
   }
   const oldProfilePicture = req.body.oldProfilePicture;
 
   if (oldProfilePicture) {
-    const file = bucket.file(oldProfilePicture);
-    await file.delete();
+    try {
+      await deleteImageFromFirebase(oldProfilePicture);
+    } catch (error) {
+      console.log(error.message);
+    }
   }
   try {
     const updateImg = await User.findOneAndUpdate(

@@ -43,7 +43,7 @@ const userSchema = new Schema(
         originalname: "avatar",
         mimetype: "image/jng",
         filename: "avatar.jpg",
-        path: "gs://profile-jalouka-bucket/avatar.jpg",
+        path: "",
         size: 0,
       },
     },

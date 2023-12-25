@@ -14,6 +14,7 @@ import { PostContext } from "../../../context/post/Post";
 import CommentComponent from "../commentcomponent/CommentComponent";
 import DeletePostModal from "./DeletePostModal";
 import SharePostModale from "./SharePostModale";
+import Avater from "../../../assets/avatar.jpg";
 
 const GetPost = ({ post }) => {
   const { user, setOnOff, onOff } = useContext(UserContext);
@@ -32,6 +33,7 @@ const GetPost = ({ post }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
   const [showComment, setShowComment] = useState(false);
+  const [url, setUrl] = useState("");
 
   // Update the likes count in the database
   const handleLike = () => {
@@ -94,6 +96,23 @@ const GetPost = ({ post }) => {
     }
   }, [posts]);
   useEffect(() => setShowComment(false), [onOff]);
+  useEffect(() => {
+    const fetchPostMedia = async () => {
+      try {
+        const response = await fetch(`/api/post/get-post-media/${post._id}`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch post media");
+        }
+        const imageUrl = await response.text();
+        setUrl(imageUrl);
+      } catch (error) {
+        console.error("Error fetching post media:", error);
+      }
+    };
+
+    fetchPostMedia();
+  }, [post]);
+
   return (
     <div
       className="container "
@@ -143,16 +162,17 @@ const GetPost = ({ post }) => {
             ) : null}
             <Card>
               {post.postPicture ? (
-                <Card.Img
-                  variant="top"
-                  src={`/api/post/get-post-media/${post._id}`}
-                />
+                <Card.Img variant="top" src={url ? url : Avater} />
               ) : post.postVideo ? (
-                <video width="100%" controls className="videoStyle">
-                  <source
-                    src={`/api/post/get-post-media/${post._id}`}
-                    type="video/mp4"
-                  />
+                <video
+                  width="100%"
+                  controls
+                  className="videoStyle"
+                  autoPlay
+                  muted
+                  src={url}
+                  type="video/mp4"
+                >
                   Your browser does not support the video tag.
                 </video>
               ) : null}

@@ -1,14 +1,5 @@
-import { Storage } from "@google-cloud/storage";
 import createError from "http-errors";
-
-const storage = new Storage({
-  projectId: process.env.PROJECT_ID,
-
-  keyFilename: "./google_credentials.json",
-});
-
-const bucketName = process.env.BUCKET_NAME;
-const bucket = storage.bucket(bucketName);
+import { uploadPostToFirebase } from "../firebase/index.js";
 
 const uploadPostToStorage = async (req, res, next) => {
   const postPicture = req.files["postPicture"];
@@ -17,28 +8,23 @@ const uploadPostToStorage = async (req, res, next) => {
     if (postPicture || postVideo) {
       const postName = postPicture ? postPicture : postVideo;
 
-      const { fieldname, originalname, mimetype, buffer, size } = postName[0];
+      const { fieldname, originalname, mimetype, size } = postName[0];
 
       const newFileName = `${Date.now()}-${originalname}`;
-      const fileUpload = bucket.file(newFileName);
 
-      await fileUpload.save(buffer, {
-        metadata: {
-          contentType: mimetype,
-        },
-      });
+      const firebasePath = await uploadPostToFirebase(postName[0]);
+      if (firebasePath) {
+        const data = {
+          fieldname,
+          originalname,
+          mimetype,
+          filename: newFileName,
+          path: firebasePath,
+          size,
+        };
 
-      const filePath = `gs://${bucketName}/${newFileName}`;
-      const data = {
-        fieldname,
-        originalname,
-        mimetype,
-        filename: newFileName,
-        path: filePath,
-        size,
-      };
-
-      req.uploadedFileData = data;
+        req.uploadedFileData = data;
+      }
       next();
     } else {
       next();

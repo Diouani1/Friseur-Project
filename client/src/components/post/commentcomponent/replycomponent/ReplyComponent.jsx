@@ -43,7 +43,7 @@ const ReplyComponent = ({ replyComments, commentId, postId }) => {
       setGetPostError,
     });
   };
-  useEffect(() => setUpdate(!update), [posts]);
+  useEffect(() => setUpdate(!update), []);
 
   return (
     <div

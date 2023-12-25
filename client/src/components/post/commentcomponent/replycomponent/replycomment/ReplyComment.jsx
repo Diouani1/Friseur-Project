@@ -10,6 +10,7 @@ import {
 import { PostContext } from "../../../../../context/post/Post";
 import { UserContext } from "../../../../../context/user/User";
 import { getTimeDifference } from "../../getTime";
+import Avater from "../../../../../assets/avatar.jpg";
 
 const ReplyComment = ({ item, commentId, postId }) => {
   const {
@@ -24,6 +25,7 @@ const ReplyComment = ({ item, commentId, postId }) => {
   const [like, setLike] = useState(false);
   const [dislike, setDislike] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
+  const [url, setUrl] = useState("");
 
   // Update the likes count in the database
   const handleLikeReply = () => {
@@ -87,6 +89,26 @@ const ReplyComment = ({ item, commentId, postId }) => {
       setLike(item.likeReply.includes(user._id));
     }
   }, [posts]);
+  useEffect(() => {
+    const fetchAuthorProfileImg = async () => {
+      try {
+        const response = await fetch(
+          `/api/post/profile-picture/${item.author.userName}`
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch post media");
+        }
+        const imageUrl = await response.text();
+        setUrl(imageUrl);
+      } catch (error) {
+        console.error("Error fetching post media:", error);
+      }
+    };
+
+    fetchAuthorProfileImg();
+  }, []);
+  useEffect(() => setUpdate(!update), []);
+
   return (
     <div
       className="hide-scroll-bar"
@@ -96,10 +118,7 @@ const ReplyComment = ({ item, commentId, postId }) => {
         columnGap: "10px",
       }}
     >
-      <Image
-        className="imgMobile"
-        src={`/api/post/profile-picture/${item.author.userName}`}
-      />
+      <Image className="imgMobile" src={url ? url : Avater} />
       <Card
         style={{
           color: "black",

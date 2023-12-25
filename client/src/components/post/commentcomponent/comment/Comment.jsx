@@ -20,6 +20,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import ReplyComponent from "../replycomponent/ReplyComponent";
 import { getTimeDifference } from "../getTime";
+import Avater from "../../../../assets/avatar.jpg";
+
 const Comment = ({ item, postId }) => {
   const {
     postDispatch,
@@ -35,6 +37,7 @@ const Comment = ({ item, postId }) => {
   const [dislike, setDislike] = useState(false);
   const [showReply, setShowRepley] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
+  const [url, setUrl] = useState("");
 
   // Update the likes count in the database
   const handleLikeComment = () => {
@@ -94,6 +97,25 @@ const Comment = ({ item, postId }) => {
       setLike(item.likeComment.includes(user._id));
     }
   }, [posts]);
+  useEffect(() => {
+    const fetchAuthorProfileImg = async () => {
+      try {
+        const response = await fetch(
+          `/api/post/profile-picture/${item.author.userName}`
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch post media");
+        }
+        const imageUrl = await response.text();
+        setUrl(imageUrl);
+      } catch (error) {
+        console.error("Error fetching post media:", error);
+      }
+    };
+
+    fetchAuthorProfileImg();
+  }, []);
+  useEffect(() => setUpdate(!update), []);
 
   return (
     <div>
@@ -105,10 +127,7 @@ const Comment = ({ item, postId }) => {
           columnGap: "10px",
         }}
       >
-        <Image
-          src={`/api/post/profile-picture/${item.author.userName}`}
-          className="imgMobile"
-        />
+        <Image src={url ? url : Avater} className="imgMobile" />
         <Card
           style={{
             color: "black",

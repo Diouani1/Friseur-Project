@@ -4,6 +4,7 @@ import { AdminContext } from "../../../../context/admin/Admin";
 import { UserContext } from "../../../../context/user/User";
 import AlertDanger from "../../../alert/AlertDanger";
 import AlertSuccess from "../../../alert/AlertSuccess";
+import Avatar from "../../../../assets/avatar.jpg";
 
 const EmployerCard = () => {
   const {
@@ -56,7 +57,11 @@ const EmployerCard = () => {
                         borderRadius: "50%",
                       }}
                       variant="top"
-                      src={`/api/admin/get-employer-picture/${employer.userName}`}
+                      src={
+                        employer.imgProfile.path
+                          ? employer.imgProfile.path
+                          : Avatar
+                      }
                     />
                   </div>
                   <Card.Body className="d-flex flex-column align-items-around justify-content-around">

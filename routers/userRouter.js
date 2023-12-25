@@ -9,7 +9,6 @@ import { updatePassword } from "../controllers/user/updatePassword.js";
 import { checkEmail } from "../controllers/user/checkEmail.js";
 import { registerUser } from "../controllers/user/registerUser.js";
 import { resetNewPassword } from "../controllers/user/resetPassword.js";
-import { profilePicture } from "../controllers/user/profilePicture.js";
 import { updateProfilePicture } from "../controllers/user/updateProfilePicture.js";
 import checkAuthToken from "../middlewares/checkAuthToken.js";
 import { addAvatar } from "../controllers/user/addAvatar.js";
@@ -19,13 +18,10 @@ const router = express.Router();
 
 const upload = multer();
 
-const fotoProfileMiddleWare = upload.fields([
-  { name: "profilePicture", maxCount: 1 },
-]);
+const fotoProfileMiddleWare = upload.single("profilePicture");
 router.delete("/delete-acount", checkAuthToken, deleteUser);
 router.get("/conform-email", conformedEmail);
 router.get("/check-email/:email", checkEmail);
-router.get("/profile-picture", checkAuthToken, profilePicture);
 router.get("/logout", logoutUser);
 router.post("/login", loginUser);
 router.post("/register", validRegisterInfo, registerUser, sendingEmail);

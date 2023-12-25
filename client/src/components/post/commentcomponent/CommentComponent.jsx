@@ -21,9 +21,8 @@ const CommentComponent = ({ comments, postId }) => {
     setUpdate,
     setShowGetPostError,
     setGetPostError,
-    posts,
   } = useContext(PostContext);
-  const { user, setOnOff } = useContext(UserContext);
+  const { user, setOnOff, profilePictureUrl } = useContext(UserContext);
   const [newComment, setNewComment] = useState("");
 
   const handleSubmit = (e) => {
@@ -43,7 +42,7 @@ const CommentComponent = ({ comments, postId }) => {
       setGetPostError,
     });
   };
-  useEffect(() => setUpdate(!update), [posts]);
+  useEffect(() => setUpdate(!update), []);
 
   return (
     <div
@@ -51,7 +50,7 @@ const CommentComponent = ({ comments, postId }) => {
         background: "rgba(0, 0, 0, 1)",
         color: "white",
         maxHeight: "60vh",
-        overflowY: "auto" /* Enable vertical scrolling */,
+        overflowY: "auto",
       }}
     >
       <Container>
@@ -74,10 +73,7 @@ const CommentComponent = ({ comments, postId }) => {
             }}
           >
             {user ? (
-              <Image
-                className="imgMobile"
-                src={`/api/post/profile-picture/${user.userName}`}
-              />
+              <Image className="imgMobile" src={profilePictureUrl} />
             ) : null}
             <Form onSubmit={handleSubmit}>
               <Form.Group

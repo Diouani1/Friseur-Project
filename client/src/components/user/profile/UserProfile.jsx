@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Container, Row, Col, Image, Button } from "react-bootstrap";
 import { UserContext } from "../../../context/user/User";
 import AlertDanger from "../../alert/AlertDanger";
-
+import Avater from "../../../assets/avatar.jpg";
 const UserProfile = () => {
   const {
     user,
@@ -24,7 +24,13 @@ const UserProfile = () => {
       setUpdateMode(true);
     }
   };
-  useEffect(() => setProfilePictureUrl(`/api/user/profile-picture`), []);
+  useEffect(() => {
+    if (user.imgProfile.path) {
+      setProfilePictureUrl(user.imgProfile.path);
+    } else {
+      setProfilePictureUrl(Avater);
+    }
+  }, []);
   // styling the image
   const styles = {
     imageContainer: {

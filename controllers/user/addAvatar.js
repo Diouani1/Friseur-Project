@@ -1,22 +1,17 @@
+import { deleteImageFromFirebase } from "../../firebase/index.js";
 import User from "../../models/User.js";
 import creatErr from "http-errors";
-import { Storage } from "@google-cloud/storage";
-
-const storage = new Storage({
-  projectId: process.env.PROJECT_ID,
-  keyFilename: "./google_credentials.json",
-});
-
-const bucketName = process.env.BUCKET_NAME_PROFILE;
-const bucket = storage.bucket(bucketName);
 
 const addAvatar = async (req, res, next) => {
   const oldProfilePicture = req.body.oldProfilePicture;
 
   try {
     if (oldProfilePicture) {
-      const file = bucket.file(oldProfilePicture);
-      await file.delete();
+      try {
+        await deleteImageFromFirebase(oldProfilePicture);
+      } catch (error) {
+        console.log(error.message);
+      }
     }
     const updateUser = await User.findOneAndUpdate(
       { _id: req.userId },
@@ -26,6 +21,7 @@ const addAvatar = async (req, res, next) => {
           originalname: "avatar",
           mimetype: "image/jng",
           filename: "avatar.jpg",
+          path: "",
           size: 0,
         },
       },

@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { AdminContext } from "../../../../context/admin/Admin";
 import { UserContext } from "../../../../context/user/User";
 import { Card, Button } from "react-bootstrap";
-
+import Avatar from "../../../../assets/avatar.jpg";
 const CardInfo = () => {
   const { selectedEmployer } = useContext(AdminContext);
   const { setComponent, setShowAppointmentModal } = useContext(UserContext);
@@ -26,7 +26,11 @@ const CardInfo = () => {
                 }}
                 className="profileImg"
                 variant="top"
-                src={`/api/post/profile-picture/${selectedEmployer.userName}`}
+                src={
+                  selectedEmployer.imgProfile.path
+                    ? selectedEmployer.imgProfile.path
+                    : Avatar
+                }
               />
             </div>
             <Card.Body className="d-flex flex-column align-items-around justify-content-around">

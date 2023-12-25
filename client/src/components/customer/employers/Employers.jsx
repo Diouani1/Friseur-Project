@@ -2,10 +2,11 @@ import { useContext } from "react";
 import { Button, Image } from "react-bootstrap";
 import { UserContext } from "../../../context/user/User";
 import { AdminContext } from "../../../context/admin/Admin";
+import Avatar from "../../../assets/avatar.jpg";
+
 const Employers = () => {
   const { setComponent, setShowError } = useContext(UserContext);
-  const { employerCard, selectedEmployer, setSelectedEmployer } =
-    useContext(AdminContext);
+  const { employerCard, setSelectedEmployer } = useContext(AdminContext);
   const handleClikedEmployer = (employer) => {
     setSelectedEmployer(employer);
     setComponent("employer-card");
@@ -25,13 +26,18 @@ const Employers = () => {
             {employerCard &&
               employerCard.map((employer) => (
                 <div className="d-flex" key={employer._id}>
+                  {console.log("first :", employer)}
                   <Button
                     variant="outline-light"
                     style={{ color: "black" }}
                     onClick={() => handleClikedEmployer(employer)}
                   >
                     <Image
-                      src={`/api/post/profile-picture/${employer.userName}`}
+                      src={
+                        employer.imgProfile.path
+                          ? employer.imgProfile.path
+                          : Avatar
+                      }
                       style={{ width: "3rem", borderRadius: "50%" }}
                     />
                   </Button>
